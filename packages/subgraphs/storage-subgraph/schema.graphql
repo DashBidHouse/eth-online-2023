@@ -1,7 +1,62 @@
-type Update @entity {
+# Define the schema for your Subgraph
+schema {
+  query: Query
+  subscription: Subscription
+}
+
+type Query {
+  auctions(where: AuctionFilter!): [Auction!]! @entity
+  bidders(where: BidderFilter!): [Bidder!]! @entity
+}
+
+type Subscription {
+  auctionUpdated: Auction @subscription
+  bidderUpdated: Bidder @subscription
+}
+
+type Auction @entity {
   id: ID!
-  count: BigInt!
-  number: BigInt! # uint256
-  sender: Bytes! # address
-  timestamp: BigInt! # uint256
+  manager: Bytes!
+  title: String!
+  maxOffer: BigInt!
+  endDate: BigInt!
+  winningBidder: Bytes
+  winningBid: BigInt
+  isFinalized: Boolean!
+  bids: [Bid!]!
+}
+
+input AuctionFilter {
+  manager: Bytes
+  title: String
+  maxOffer: BigInt
+  endDate: BigInt
+  winningBidder: Bytes
+  winningBid: BigInt
+  isFinalized: Boolean
+  bids: BidFilter
+}
+
+type Bidder @entity {
+  id: ID!
+  address: Bytes!
+  bids: [Bid!]!
+}
+
+input BidderFilter {
+  address: Bytes
+  bids: BidFilter
+}
+
+type Bid @entity {
+  id: ID!
+  offer: BigInt!
+  auction: Auction!
+  bidder: Bidder!
+}
+
+input BidFilter {
+  offer: BigInt
+  auction: AuctionFilter
+  bidder: BidderFilter
 }
