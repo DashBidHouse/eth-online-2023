@@ -1,0 +1,40 @@
+{
+    "name": "eth-online-2023",
+    "version": "1.0.0",
+    "description": "Custom Celo Composer project.",
+    "private": true,
+    "author": "Celo",
+    "license": "MIT",
+    "scripts": {
+        "react-app:dev": "yarn workspace @eth-online-2023/react-app dev",
+        "react-app:build": "yarn workspace @eth-online-2023/react-app build",
+        "react-app:start": "yarn workspace @eth-online-2023/react-app start",
+        "react-app:lint": "yarn workspace @eth-online-2023/react-app lint",
+        "hardhat:test": "yarn workspace @eth-online-2023/hardhat test",
+        "hardhat:test-local": "yarn workspace @eth-online-2023/hardhat test-local",
+        "hardhat:create-account": "yarn workspace @eth-online-2023/hardhat create-account",
+        "hardhat:accounts": "yarn workspace @eth-online-2023/hardhat accounts",
+        "hardhat:devchain": "yarn workspace @eth-online-2023/hardhat devchain",
+        "hardhat:deploy": "yarn workspace @eth-online-2023/hardhat deploy",
+        "hardhat:deploy-reset-watch": "yarn workspace @eth-online-2023/hardhat deploy-reset-watch",
+        "hardhat:watch": "yarn workspace @eth-online-2023/hardhat watch",
+        "hardhat:fork-mainnet": "yarn workspace @eth-online-2023/hardhat fork-mainnet",
+        "subgraphs:test": "yarn workspace @eth-online-2023/subgraphs test",
+        "subgraphs:get-abi": "yarn workspace @eth-online-2023/subgraphs get-abi"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/celo-org/celo-composer.git"
+    },
+    "bugs": {
+        "url": "https://github.com/celo-org/celo-composer/issues"
+    },
+    "homepage": "https://github.com/celo-org/celo-composer/blob/main/README.md",
+    "workspaces": [
+        "packages/*"
+    ],
+    "keywords": [
+        "celo-composer",
+        "celo"
+    ]
+}
