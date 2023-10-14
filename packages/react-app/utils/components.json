@@ -1,0 +1,34 @@
+{
+  "auctionItems": [
+    {
+      "name": "Auction Title",
+      "key": "title",
+      "type": "string",
+      "size": "md"
+    },
+    {
+      "name": "Description",
+      "key": "description",
+      "type": "string",
+      "size": "lg"
+    },
+    {
+      "name": "Max Offer",
+      "key": "maxOffer",
+      "type": "number",
+      "size": "md"
+    },
+    {
+      "name": "Deadline",
+      "key": "endDate",
+      "type": "Date",
+      "size": "md"
+    },
+    {
+      "name": "Status",
+      "key": "status",
+      "type": "string",
+      "size": "md"
+    }
+  ]
+}
