@@ -2,7 +2,6 @@ type ComponentItem = {
   name: string;
   key: string;
   type: string;
-  size: string;
 };
 
 type AuctionItem = {
@@ -13,6 +12,7 @@ type AuctionItem = {
   numberOfBids: number;
   endDate: string;
   description: string;
+  [key: string]: any;
 };
 
 type BiddingItem = {

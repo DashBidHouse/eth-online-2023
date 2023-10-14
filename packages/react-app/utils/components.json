@@ -3,32 +3,27 @@
     {
       "name": "Auction Title",
       "key": "title",
-      "type": "string",
-      "size": "md"
+      "type": "string"
     },
     {
       "name": "Description",
       "key": "description",
-      "type": "string",
-      "size": "lg"
+      "type": "string"
     },
     {
       "name": "Max Offer",
       "key": "maxOffer",
-      "type": "number",
-      "size": "md"
+      "type": "number"
     },
     {
       "name": "Deadline",
       "key": "endDate",
-      "type": "Date",
-      "size": "md"
+      "type": "Date"
     },
     {
       "name": "Status",
       "key": "status",
-      "type": "string",
-      "size": "md"
+      "type": "string"
     }
   ]
 }

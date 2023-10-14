@@ -1,4 +1,4 @@
-import { Button, Textarea, Typography } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 import BiddingList from "./BiddingList";
 import { bids } from "../utils/mockData";
 

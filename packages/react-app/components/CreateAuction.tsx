@@ -16,12 +16,12 @@ export default function CreateAuction({
               variant="standard"
               label={item.name}
               type={item.type}
-              size={item.size}
+              size={item.name === "description" ? "lg" : "md"}
             />
           ))}
         </div>
       )}
-      <Button color="blue mt-5" ripple={true}>
+      <Button color="blue" ripple={true}>
         Place Auction
       </Button>
     </div>
