@@ -22,5 +22,4 @@ type BiddingItem = {
   successFullDeals: number;
   ongoingDeals: number;
   canceledDeals: number;
-  address: string;
 };
