@@ -46,6 +46,9 @@ contract Auction {
         emit BidPlaced(_offer, msg.sender);
     }
 
+    //  TODO: cancelBid function
+    //  TODO: cancelAUction function
+
     function finalizeAuction(
         address _winningBidder,
         uint256 _winningBid
