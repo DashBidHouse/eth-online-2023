@@ -13,14 +13,14 @@ export default function AuctionDetail({
 
   return (
     <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8 flex-col">
-      <div className="flex w-72 flex-col gap-6">
+      <div className="flex w-72 flex-col gap-6 m-5">
         {detailFields.map((item) => (
           <Typography key={item.key}>
             {item.key}: {auctionItem[item.key]}
           </Typography>
         ))}
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 m-5">
         <Button color="blue" ripple={true}>
           Bid Now
         </Button>{" "}
@@ -31,7 +31,9 @@ export default function AuctionDetail({
           Cancel Work Agreement
         </Button>{" "}
       </div>
-      {bids?.length > 0 && <BiddingList biddingList={bids}></BiddingList>}
+      <div className="flex items-center gap-4 m-5">
+        {bids?.length > 0 && <BiddingList biddingList={bids}></BiddingList>}
+      </div>
     </div>
   );
 }

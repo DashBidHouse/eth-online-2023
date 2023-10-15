@@ -14,13 +14,13 @@ export default function AuctionListPage() {
   }, [address, isConnected]);
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="h1">
+    <div className="flex  justify-center items-center">
+      <div className="h1 flex ">
         <AuctionList listEntries={auctions}></AuctionList>
       </div>
-      {isConnected && (
+      {/* {isConnected && (
         <div className="h2 text-center">Your address: {userAddress}</div>
-      )}
+      )} */}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 export const bids: BiddingItem[] = [
   {
-    bidderAddress: "0xajdnk",
+    bidderAddress: "0xajdnl",
     offer: 100,
     status: "accepted",
     successFullDeals: 2,
@@ -9,7 +9,7 @@ export const bids: BiddingItem[] = [
     address: "0x123k",
   },
   {
-    bidderAddress: "0xajdnk",
+    bidderAddress: "0xajdnm",
     offer: 200,
     status: "declined",
     successFullDeals: 2,
@@ -18,7 +18,7 @@ export const bids: BiddingItem[] = [
     address: "0x123l",
   },
   {
-    bidderAddress: "0xajdnk",
+    bidderAddress: "0xajdnn",
     offer: 200,
     status: "declined",
     successFullDeals: 2,

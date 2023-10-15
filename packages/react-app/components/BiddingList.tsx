@@ -158,15 +158,8 @@ export default function BiddingList({
                       <td className={classes}>
                         <Button color="blue" className="font-normal">
                           Accept Bid
-                        </Button>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
                           {/* TODO: Import auction status from detail Page  */}
-                          Declined || Accepted
-                        </Typography>
+                        </Button>
                       </td>
                     </tr>
                   );

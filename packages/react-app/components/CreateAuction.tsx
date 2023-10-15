@@ -8,10 +8,10 @@ export default function CreateAuction({
   return (
     <div className="flex-col">
       {inputFields?.length > 0 && (
-        <div className="flex w-72 flex-col gap-6">
+        <div className="flex w-72 flex-col gap-6 m-5">
           {inputFields?.map((item) => (
             <Input
-              crossOrigin
+              crossOrigin="true"
               key={item.name}
               variant="standard"
               label={item.name}
@@ -21,7 +21,7 @@ export default function CreateAuction({
           ))}
         </div>
       )}
-      <Button color="blue" ripple={true}>
+      <Button className="m-5" color="blue" ripple={true}>
         Place Auction
       </Button>
     </div>
