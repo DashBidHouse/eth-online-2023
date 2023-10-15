@@ -4,10 +4,10 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ nardoshood/databid",
-    "create-local": "graph create --node http://localhost:8020/ nardoshood/databid",
-    "remove-local": "graph remove --node http://localhost:8020/ nardoshood/databid",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 nardoshood/databid",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ nardostilahun/databid",
+    "create-local": "graph create --node http://localhost:8020/ nardostilahun/databid",
+    "remove-local": "graph remove --node http://localhost:8020/ nardostilahun/databid",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 nardostilahun/databid",
     "test": "graph test"
   },
   "dependencies": {

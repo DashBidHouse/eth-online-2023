@@ -3,25 +3,22 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: Auction
+    name: AuctionFactory
     network: celo-alfajores
     source:
       address: "0x1Cc6bE03b0Bfe857240FF75AF41d4fbE9117a659"
-      abi: Auction
-      startBlock: 0
+      abi: AuctionFactory
+      startBlock: 20402571
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - AuctionFinalized
-        - BidPlaced
+        - AuctionCreated
       abis:
-        - name: Auction
-          file: ./abis/Auction.json
+        - name: AuctionFactory
+          file: ./abis/AuctionFactory.json
       eventHandlers:
-        - event: AuctionFinalized(indexed address,string,uint256,uint256,indexed address,uint256)
-          handler: handleAuctionFinalized
-        - event: BidPlaced(uint256,indexed address)
-          handler: handleBidPlaced
-      file: ./src/auction.ts
+        - event: AuctionCreated(indexed address,indexed address,string,uint256,uint256)
+          handler: handleAuctionCreated
+      file: ./src/auction-factory.ts
