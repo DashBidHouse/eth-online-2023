@@ -72,7 +72,6 @@ export default function BiddingList({
                     successFullDeals,
                     ongoingDeals,
                     canceledDeals,
-                    address,
                   },
                   index
                 ) => {
@@ -144,15 +143,6 @@ export default function BiddingList({
                           className="font-normal"
                         >
                           {canceledDeals}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {address}
                         </Typography>
                       </td>
                       <td className={classes}>
