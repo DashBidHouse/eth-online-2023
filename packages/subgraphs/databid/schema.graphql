@@ -1,0 +1,21 @@
+type AuctionFinalized @entity(immutable: true) {
+  id: Bytes!
+  manager: Bytes! # address
+  title: String! # string
+  maxOffer: BigInt! # uint256
+  endDate: BigInt! # uint256
+  bidder: Bytes! # address
+  winningBid: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type BidPlaced @entity(immutable: true) {
+  id: Bytes!
+  offer: BigInt! # uint256
+  bidder: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

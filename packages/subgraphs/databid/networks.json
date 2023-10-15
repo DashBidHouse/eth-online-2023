@@ -1,0 +1,8 @@
+{
+  "celo-alfajores": {
+    "Auction": {
+      "address": "0x1Cc6bE03b0Bfe857240FF75AF41d4fbE9117a659",
+      "startBlock": 0
+    }
+  }
+}
