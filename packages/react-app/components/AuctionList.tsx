@@ -9,7 +9,7 @@ export default function AuctionList({
 
   return (
     <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
-      <div className="flex w-72 flex-col gap-6">
+      <div className="flex flex-row gap-6">
         {listEntries.map((item) => (
           <AuctionCard {...item} key={item.address}></AuctionCard>
         ))}
