@@ -1,0 +1,11 @@
+type AuctionCreated @entity(immutable: true) {
+  id: Bytes!
+  manager: Bytes! # address
+  newAuction: Bytes! # address
+  title: String! # string
+  maxOffer: BigInt! # uint256
+  endDate: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

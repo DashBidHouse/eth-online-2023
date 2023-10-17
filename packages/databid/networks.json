@@ -1,0 +1,8 @@
+{
+  "optimism-goerli": {
+    "auctionfactory": {
+      "address": "0x1cc6be03b0bfe857240ff75af41d4fbe9117a659",
+      "startBlock": 16055734
+    }
+  }
+}
