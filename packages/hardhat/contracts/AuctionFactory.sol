@@ -12,14 +12,14 @@ struct AuctionType {
     uint256 submissionDeadline; // input
     uint256 startDat; // created in SC
     uint256 endDate; // created in SC
-    string status; // open | closed | cancled  - // created/set in SC
+    string status; // open | closed | canceled  - // created/set in SC
 }
 struct Bidding {
     address auction; // input
     address bidder; // created/set in SC
     uint256 offer; // input
     string description; // input
-    string status; // accepted | declined | cancled - // created/set in SC
+    string status; // accepted | declined | canceled - // created/set in SC
 }
 
 contract AuctionFactory {
