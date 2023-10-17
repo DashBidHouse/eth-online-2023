@@ -54,7 +54,7 @@ export default function AuctionDetail({
           crossOrigin="true"
           variant="standard"
           label="Description of your proposal"
-          type="number"
+          type="string"
           size="lg"
         />
         <Button className="w-max" color="blue">

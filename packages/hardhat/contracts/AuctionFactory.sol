@@ -4,21 +4,21 @@ pragma solidity ^0.8.0;
 import "./Auction.sol"; // Import the Auction contract
 
 struct AuctionType {
-    address manager;
-    address newAuction;
-    string title;
-    string description;
-    uint256 maxOffer;
-    uint256 submissionDeadline;
-    uint256 startDat;
-    uint256 endDate;
-    string status; // open | closed | cancled
+    address manager; // input
+    address newAuction; // created in SC
+    string title; // input
+    string description; // input
+    uint256 maxOffer; // input
+    uint256 submissionDeadline; // input
+    uint256 startDat; // created in SC
+    uint256 endDate; // created in SC
+    string status; // open | closed | cancled  - // created/set in SC
 }
 struct Bidding {
-    address auction;
-    uint256 offer;
-    string description;
-    string status; // accepted | declined | cancled
+    address auction; // input
+    uint256 offer; // input
+    string description; // input
+    string status; // accepted | declined | cancled - // created/set in SC
 }
 
 contract AuctionFactory {
