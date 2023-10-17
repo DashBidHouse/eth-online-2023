@@ -1,6 +1,6 @@
 import { newMockEvent } from "matchstick-as"
 import { ethereum, Address, BigInt } from "@graphprotocol/graph-ts"
-import { AuctionCreated } from "../generated/AuctionFactory/AuctionFactory"
+import { AuctionCreated } from "../generated/auctionfactory/auctionfactory"
 
 export function createAuctionCreatedEvent(
   manager: Address,

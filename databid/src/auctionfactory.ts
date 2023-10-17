@@ -1,4 +1,4 @@
-import { AuctionCreated as AuctionCreatedEvent } from "../generated/AuctionFactory/AuctionFactory"
+import { AuctionCreated as AuctionCreatedEvent } from "../generated/auctionfactory/auctionfactory"
 import { AuctionCreated } from "../generated/schema"
 
 export function handleAuctionCreated(event: AuctionCreatedEvent): void {
