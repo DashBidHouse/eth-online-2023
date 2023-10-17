@@ -14,8 +14,8 @@ export default function AuctionListPage() {
   }, [address, isConnected]);
 
   return (
-    <div className="flex  justify-center items-center">
-      <div className="h1 flex ">
+    <div className="">
+      <div className="">
         <AuctionList listEntries={auctions}></AuctionList>
       </div>
       {/* {isConnected && (

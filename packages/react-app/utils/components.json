@@ -19,11 +19,6 @@
       "name": "Deadline",
       "key": "endDate",
       "type": "Date"
-    },
-    {
-      "name": "Status",
-      "key": "status",
-      "type": "string"
     }
   ]
 }

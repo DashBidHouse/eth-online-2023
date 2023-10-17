@@ -6,7 +6,6 @@ import {
   CardHeader,
   Chip,
   IconButton,
-  Tooltip,
   Typography,
 } from "@material-tailwind/react";
 
@@ -27,8 +26,8 @@ export default function BiddingList({
 }) {
   // TODO: Replace mockdata with data from subgraph or tabelland
   const TABLE_ROWS = biddingList;
-  console.log("data", TABLE_ROWS);
-  console.log("data", biddingList);
+
+  // call contract auction.finalizeAuction()
 
   return (
     <Card className="h-full w-full">
@@ -72,7 +71,6 @@ export default function BiddingList({
                     successFullDeals,
                     ongoingDeals,
                     canceledDeals,
-                    address,
                   },
                   index
                 ) => {
@@ -147,18 +145,10 @@ export default function BiddingList({
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {address}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
                         <Button color="blue" className="font-normal">
                           Accept Bid
                           {/* TODO: Import auction status from detail Page  */}
+                          {/* TODO: As soon as a bid is accepted, all the other ones are cancled  */}
                         </Button>
                       </td>
                     </tr>

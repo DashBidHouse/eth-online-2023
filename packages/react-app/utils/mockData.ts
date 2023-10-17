@@ -6,7 +6,6 @@ export const bids: BiddingItem[] = [
     successFullDeals: 2,
     ongoingDeals: 1,
     canceledDeals: 3,
-    address: "0x123k",
   },
   {
     bidderAddress: "0xajdnm",
@@ -15,7 +14,6 @@ export const bids: BiddingItem[] = [
     successFullDeals: 2,
     ongoingDeals: 1,
     canceledDeals: 3,
-    address: "0x123l",
   },
   {
     bidderAddress: "0xajdnn",
@@ -24,7 +22,6 @@ export const bids: BiddingItem[] = [
     successFullDeals: 2,
     ongoingDeals: 1,
     canceledDeals: 3,
-    address: "0x123m",
   },
 ];
 

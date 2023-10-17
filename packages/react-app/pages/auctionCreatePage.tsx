@@ -15,7 +15,7 @@ export default function Home() {
     }
   }, [address, isConnected]);
 
-  console.log("data", inputFields);
+  // Call contract auctionfactory.createAuction()
 
   return (
     <div className="flex flex-col justify-center items-center">
