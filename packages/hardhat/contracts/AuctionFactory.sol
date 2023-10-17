@@ -16,6 +16,7 @@ struct AuctionType {
 }
 struct Bidding {
     address auction; // input
+    address bidder; // created/set in SC
     uint256 offer; // input
     string description; // input
     string status; // accepted | declined | cancled - // created/set in SC

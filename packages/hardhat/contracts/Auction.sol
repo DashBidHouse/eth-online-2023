@@ -80,7 +80,7 @@ contract Auction {
         isFinalized = true;
     }
 
-    function canelAuction(address _winningBidder, uint256 _winningBid) public {
+    function cancelAuction(address _winningBidder, uint256 _winningBid) public {
         require(!isFinalized, "Auction has already been finalized.");
         // require(block.timestamp >= endDate, "Auction is still active.");
         require(
