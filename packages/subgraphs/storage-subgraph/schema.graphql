@@ -1,10 +1,10 @@
 type AuctionCreate @entity {
   id: ID!
-  manager: String
-  newAuction: String
+  manager: Bytes
+  newAuction: Bytes
   title: String
   maxOffer: BigInt
   submissionDeadline: BigInt
-  startDate: BigInt!
-  endDate: BigInt!
+  startDate: BigInt
+  endDate: BigInt
 }
