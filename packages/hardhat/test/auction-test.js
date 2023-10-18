@@ -32,32 +32,29 @@ describe('Auction', function () {
     it('Create Auction', async () => {
       await auctionFactoryContract.createAuction('Auction1', 'Description', MAX_OFFER, SUBMISSION_DEADLINE, Math.floor(Date.now() / 1000) + 20);
       const deployedAuctions = await auctionFactoryContract.getDeployedAuctions();
-      console.log('deployedAuctions', deployedAuctions);
-
       autionContract = await ethers.getContractAt('Auction', deployedAuctions[0]);
     });
     it('Place Bid', async () => {
       await autionContract.connect(alice).placeBid(MAX_OFFER, 'first Bid');
-
       await expect(autionContract.connect(bob).placeBid(MAX_OFFER, 'second Bid')).to.be.reverted;
-
       await autionContract.connect(bob).placeBid(MAX_OFFER - 1, 'second Bid');
+      expect((await autionContract.maxBidOffer()) === MAX_OFFER - 1).to.be.equal;
     });
 
     it('Cancel Bid', async () => {
       await autionContract.connect(quinn).placeBid(MAX_OFFER - 3, 'third Bid');
-
+      // Can't bid more than once
       await expect(autionContract.connect(quinn).placeBid(MAX_OFFER - 4, 'third Bid')).to.be.reverted;
-
       await autionContract.connect(quinn).cancelBid();
+
+      const biddingForAuction = autionContract.biddingForAuction(quinn.address);
+      expect(biddingForAuction.status === 3).to.be.equal;
     });
 
     it('Get Biddings', async () => {
       const bidders = await autionContract.getBidders();
-      // console.log('bidders', bidders)
       for (let i = 0; i < bidders.length; i++) {
         let biddingForAuction = await autionContract.biddingForAuction(bidders[i]);
-        // console.log('bidder', biddingForAuction);
       }
     });
 
@@ -67,11 +64,9 @@ describe('Auction', function () {
       const winner = bidders[bidders.length - 2];
       const winnerBid = await autionContract.biddingForAuction(winner);
       await autionContract.finalizeAuction(winner, winnerBid.offerAmount);
-      
-      const winningBidder = await autionContract.winningBidder();
-      const winningBid = await autionContract.winningBid();
-      console.log('winningBidder', winningBidder)
-      console.log('winningBid', winningBid)
+
+      expect((await autionContract.winningBidder()) === winner).to.be.equal;
+      expect((await autionContract.winningBid()) === winnerBid).to.be.equal;
     });
   });
 });
