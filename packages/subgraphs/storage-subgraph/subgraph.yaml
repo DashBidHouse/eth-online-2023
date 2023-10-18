@@ -1,23 +1,24 @@
-specVersion: 0.0.2
+specVersion: 0.0.4
 schema:
   file: ./schema.graphql
 dataSources:
-  - kind: ethereum
-    name: Storage
-    network: celo-alfajores
+  - kind: ethereum/contract
+    name: AuctionFactory
+    network: goerli
     source:
-      address: "0x5ba3ec4808A655381452f4b58C929e4200B4DF69"
-      abi: Storage
+      address: "0x11a52c510a9457d36C1BC9413CEa6Ef1398b7142"
+      abi: AuctionFactory
+      startBlock: 9887611
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - newNumber
+        - AuctionFactory
       abis:
-        - name: Storage
-          file: ./abis/Storage.json
+        - name: AuctionFactory
+          file: ../abis/AuctionFactory.json
       eventHandlers:
-        - event: newNumber(uint256,address)
-          handler: handlenewNumber
-      file: ./src/mapping.ts
+        - event: AuctionCreated(indexed address,indexed address,string,uint256,uint256,uint256,uint256)
+          handler: handleAuctionCreated
+      file: ./src/auctionFactory.ts
