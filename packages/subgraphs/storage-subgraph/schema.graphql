@@ -8,3 +8,36 @@ type AuctionCreate @entity {
   startDate: BigInt
   endDate: BigInt
 }
+
+type AuctionFinalize @entity {
+  id: ID!
+  manager: Bytes
+  title: String
+  maxOffer: BigInt
+  endDate: BigInt
+  bidder: Bytes
+  winningBid: BigInt
+}
+
+type AuctionCancel @entity {
+  id: ID!
+  manager: Bytes
+  title: String
+  maxOffer: BigInt
+  endDate: BigInt
+  bidder: Bytes
+  winningBid: BigInt
+}
+
+type BidPlace @entity {
+  id: ID!
+  offer: BigInt
+  description: String
+  bidder: Bytes!
+}
+
+type BidCancel @entity {
+  id: ID!
+  offer: BigInt
+  bidder: Bytes!
+}
