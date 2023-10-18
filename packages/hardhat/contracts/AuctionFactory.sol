@@ -1,7 +1,26 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import './Auction.sol'; // Import the Auction contract
+import "./Auction.sol"; // Import the Auction contract
+
+struct AuctionType {
+    address manager; // input
+    address newAuction; // created in SC
+    string title; // input
+    string description; // input
+    uint256 maxOffer; // input
+    uint256 submissionDeadline; // input
+    uint256 startDat; // created in SC
+    uint256 endDate; // created in SC
+    string status; // open | closed | canceled  - // created/set in SC
+}
+struct Bidding {
+    address auction; // input
+    address bidder; // created/set in SC
+    uint256 offer; // input
+    string description; // input
+    string status; // accepted | declined | canceled - // created/set in SC
+}
 
 contract AuctionFactory {
   uint256 public constant AUCTION_PERIOD = 3600 * 48;
