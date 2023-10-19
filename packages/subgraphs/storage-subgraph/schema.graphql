@@ -1,62 +1,43 @@
-# Define the schema for your Subgraph
-schema {
-  query: Query
-  subscription: Subscription
+type AuctionCreate @entity {
+  id: ID!
+  manager: Bytes
+  newAuction: Bytes
+  title: String
+  maxOffer: BigInt
+  submissionDeadline: BigInt
+  startDate: BigInt
+  endDate: BigInt
 }
 
-type Query {
-  auctions(where: AuctionFilter!): [Auction!]! @entity
-  bidders(where: BidderFilter!): [Bidder!]! @entity
-}
-
-type Subscription {
-  auctionUpdated: Auction @subscription
-  bidderUpdated: Bidder @subscription
-}
-
-type Auction @entity {
-  id: ID! // address
-  manager: Bytes!
-  title: String!
-  maxOffer: BigInt!
-  endDate: BigInt!
-  winningBidder: Bytes
-  winningBid: BigInt
-  isFinalized: Boolean!
-  bids: [Bid!]!
-}
-
-input AuctionFilter {
+type AuctionFinalize @entity {
+  id: ID!
   manager: Bytes
   title: String
   maxOffer: BigInt
   endDate: BigInt
-  winningBidder: Bytes
+  bidder: Bytes
   winningBid: BigInt
-  isFinalized: Boolean
-  bids: BidFilter
 }
 
-type Bidder @entity {
+type AuctionCancel @entity {
   id: ID!
-  address: Bytes!
-  bids: [Bid!]!
+  manager: Bytes
+  title: String
+  maxOffer: BigInt
+  endDate: BigInt
+  bidder: Bytes
+  winningBid: BigInt
 }
 
-input BidderFilter {
-  address: Bytes
-  bids: BidFilter
-}
-
-type Bid @entity {
+type BidPlace @entity {
   id: ID!
-  offer: BigInt!
-  auction: Auction!
-  bidder: Bidder!
-}
-
-input BidFilter {
   offer: BigInt
-  auction: AuctionFilter
-  bidder: BidderFilter
+  description: String
+  bidder: Bytes!
+}
+
+type BidCancel @entity {
+  id: ID!
+  offer: BigInt
+  bidder: Bytes!
 }
