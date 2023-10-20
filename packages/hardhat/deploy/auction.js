@@ -37,15 +37,7 @@ async function main() {
     console.log('autionContract.address', autionContract.address);
 
     await sleep(20);
-    await verify(autionContract.address, [
-      deployer.address,
-      title,
-      description,
-      maxOffer,
-      submissionDeadline,
-      startDate,
-      endDate,
-    ]);
+    await verify(autionContract.address, [deployer.address, title, description, maxOffer, submissionDeadline, startDate, endDate]);
   } catch (err) {
     console.log('err', err);
   }

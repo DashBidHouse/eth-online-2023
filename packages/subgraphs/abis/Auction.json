@@ -1,17 +1,41 @@
 [
   {
     "inputs": [
-      { "internalType": "address", "name": "_manager", "type": "address" },
-      { "internalType": "string", "name": "_title", "type": "string" },
-      { "internalType": "string", "name": "_description", "type": "string" },
-      { "internalType": "uint256", "name": "_maxOffer", "type": "uint256" },
+      {
+        "internalType": "address",
+        "name": "_manager",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_title",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_description",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_maxOffer",
+        "type": "uint256"
+      },
       {
         "internalType": "uint256",
         "name": "_submissionDeadline",
         "type": "uint256"
       },
-      { "internalType": "uint256", "name": "_startDate", "type": "uint256" },
-      { "internalType": "uint256", "name": "_endDate", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_startDate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_endDate",
+        "type": "uint256"
+      }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -57,6 +81,31 @@
       }
     ],
     "name": "canceledAuction",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "offer",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "auction",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "bidder",
+        "type": "address"
+      }
+    ],
+    "name": "canceledBid",
     "type": "event"
   },
   {
@@ -112,29 +161,16 @@
         "type": "uint256"
       },
       {
-        "indexed": true,
-        "internalType": "address",
-        "name": "bidder",
-        "type": "address"
-      }
-    ],
-    "name": "canceledBid",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "offer",
-        "type": "uint256"
-      },
-      {
         "indexed": false,
         "internalType": "string",
         "name": "description",
         "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "auction",
+        "type": "address"
       },
       {
         "indexed": true,
@@ -147,11 +183,25 @@
     "type": "event"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "name": "biddingForAuction",
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "biddingByBidder",
     "outputs": [
-      { "internalType": "uint256", "name": "offerAmount", "type": "uint256" },
-      { "internalType": "string", "name": "description", "type": "string" },
+      {
+        "internalType": "uint256",
+        "name": "offerAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
       {
         "internalType": "enum Auction.BidStatus",
         "name": "status",
@@ -182,7 +232,11 @@
         "name": "_winningBidder",
         "type": "address"
       },
-      { "internalType": "uint256", "name": "_winningBid", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "_winningBid",
+        "type": "uint256"
+      }
     ],
     "name": "finalizeAuction",
     "outputs": [],
@@ -193,7 +247,11 @@
     "inputs": [],
     "name": "getBidders",
     "outputs": [
-      { "internalType": "address[]", "name": "", "type": "address[]" }
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -201,14 +259,28 @@
   {
     "inputs": [],
     "name": "maxBidOffer",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_offer", "type": "uint256" },
-      { "internalType": "string", "name": "description", "type": "string" }
+      {
+        "internalType": "uint256",
+        "name": "_offer",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      }
     ],
     "name": "placeBid",
     "outputs": [],
@@ -218,14 +290,26 @@
   {
     "inputs": [],
     "name": "winningBid",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "winningBidder",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   }
