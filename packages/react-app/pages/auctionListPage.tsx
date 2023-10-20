@@ -2,6 +2,7 @@ import AuctionList from "@/components/AuctionList";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { auctions } from "../utils/mockData";
+import { Typography } from "@material-tailwind/react";
 
 export default function AuctionListPage() {
   const [userAddress, setUserAddress] = useState("");
@@ -15,6 +16,10 @@ export default function AuctionListPage() {
 
   return (
     <div className="">
+      <Typography>
+        Are you a data freelancer? Send your offer (bid) to work on an active
+        project here:
+      </Typography>
       <div className="">
         <AuctionList listEntries={auctions}></AuctionList>
       </div>

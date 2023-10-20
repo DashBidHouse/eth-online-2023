@@ -22,7 +22,7 @@ export default function Header() {
   }, [connect]);
 
   return (
-    <Disclosure as="nav" className="bg-prosperity border-b border-black">
+    <Disclosure as="nav" className="bg-beige1 ">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -40,7 +40,7 @@ export default function Header() {
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   <Link
                     href="/"
-                    className="inline-flex items-center border-b-2 border-black px-1 pt-1 text-sm font-medium text-gray-900"
+                    className="inline-flex items-center  px-1 pt-1 text-sm font-medium text-gray-900"
                   >
                     Home
                   </Link>
@@ -48,15 +48,15 @@ export default function Header() {
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   <Link
                     href="/auctionListPage"
-                    className="inline-flex items-center border-b-2 border-black px-1 pt-1 text-sm font-medium text-gray-900"
+                    className="inline-flex items-center  px-1 pt-1 text-sm font-medium text-gray-900"
                   >
-                    Auctions
+                    Projects
                   </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   <Link
                     href="/auctionDetailPage"
-                    className="inline-flex items-center border-b-2 border-black px-1 pt-1 text-sm font-medium text-gray-900"
+                    className="inline-flex items-center  px-1 pt-1 text-sm font-medium text-gray-900"
                   >
                     Detail
                   </Link>
@@ -64,9 +64,17 @@ export default function Header() {
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   <Link
                     href="/auctionCreatePage"
-                    className="inline-flex items-center border-b-2 border-black px-1 pt-1 text-sm font-medium text-gray-900"
+                    className="inline-flex items-center  px-1 pt-1 text-sm font-medium text-gray-900"
                   >
                     Create Auction
+                  </Link>
+                </div>
+                <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                  <Link
+                    href="/profilePage"
+                    className="inline-flex items-center  px-1 pt-1 text-sm font-medium text-gray-900"
+                  >
+                    Profile
                   </Link>
                 </div>
               </div>
@@ -85,21 +93,21 @@ export default function Header() {
               <Disclosure.Button
                 as="a"
                 href="#"
-                className="block border-l-4 border-black py-2 pl-3 pr-4 text-base font-medium text-black"
+                className="block  py-2 pl-3 pr-4 text-base font-medium text-black"
               >
                 Home
               </Disclosure.Button>
               <Disclosure.Button
                 as="a"
                 href="/auctionListPage"
-                className="block border-l-4 border-black py-2 pl-3 pr-4 text-base font-medium text-black"
+                className="block  py-2 pl-3 pr-4 text-base font-medium text-black"
               >
-                Auctions
+                Projects
               </Disclosure.Button>
               <Disclosure.Button
                 as="a"
                 href="/auctionDetailPage"
-                className="block border-l-4 border-black py-2 pl-3 pr-4 text-base font-medium text-black"
+                className="block  py-2 pl-3 pr-4 text-base font-medium text-black"
               >
                 Detail
               </Disclosure.Button>
