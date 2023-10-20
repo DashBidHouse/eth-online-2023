@@ -1,7 +1,17 @@
-import { AuctionFinalized, AuctionCanceled, BidPlaced, BidCanceled } from "../generated/Auction/Auction";
-import { AuctionFinalize, AuctionCancel, BidPlace, BidCancel } from "../generated/schema";
+import {
+  finalizedAuction,
+  canceledAuction,
+  placedBid,
+  canceledBid,
+} from "../generated/Auction/Auction";
+import {
+  AuctionFinalize,
+  AuctionCancel,
+  BidPlace,
+  BidCancel,
+} from "../generated/schema";
 
-export function handleAuctionFinalized(event: AuctionFinalized): void {
+export function handleAuctionFinalized(event: finalizedAuction): void {
   let auction = new AuctionFinalize(event.params.manager.toHexString());
   auction.manager = event.params.manager;
   auction.title = event.params.title;
@@ -12,7 +22,7 @@ export function handleAuctionFinalized(event: AuctionFinalized): void {
   auction.save();
 }
 
-export function handleAuctionCanceled(event: AuctionCanceled): void {
+export function handleAuctionCanceled(event: canceledAuction): void {
   let auction = new AuctionCancel(event.params.manager.toHexString());
   auction.manager = event.params.manager;
   auction.title = event.params.title;
@@ -23,7 +33,7 @@ export function handleAuctionCanceled(event: AuctionCanceled): void {
   auction.save();
 }
 
-export function handleBidPlaced(event: BidPlaced): void {
+export function handleBidPlaced(event: placedBid): void {
   let auction = new BidPlace(event.params.bidder.toHexString());
   auction.offer = event.params.offer;
   auction.description = event.params.description;
@@ -31,7 +41,7 @@ export function handleBidPlaced(event: BidPlaced): void {
   auction.save();
 }
 
-export function handleBidCanceled(event: BidCanceled): void {
+export function handleBidCanceled(event: canceledBid): void {
   let auction = new BidCancel(event.params.bidder.toHexString());
   auction.offer = event.params.offer;
   auction.bidder = event.params.bidder;

@@ -1,10 +1,10 @@
 import {
-  AuctionCreated,
+  createdAuction,
   AuctionFactory,
 } from "../generated/AuctionFactory/AuctionFactory";
 import { AuctionCreate } from "../generated/schema";
 
-export function handleAuctionCreated(event: AuctionCreated): void {
+export function handleAuctionCreated(event: createdAuction): void {
   let auction = AuctionCreate.load(event.params.newAuction.toHexString());
   if (!auction) {
     auction = new AuctionCreate(event.params.newAuction.toHexString());
