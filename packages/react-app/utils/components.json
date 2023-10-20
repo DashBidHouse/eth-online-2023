@@ -6,12 +6,12 @@
       "type": "string"
     },
     {
-      "name": "Description",
-      "key": "description",
+      "name": "Status",
+      "key": "status",
       "type": "string"
     },
     {
-      "name": "Max Offer",
+      "name": "Max Budget",
       "key": "maxOffer",
       "type": "number"
     },
@@ -19,6 +19,11 @@
       "name": "Deadline",
       "key": "endDate",
       "type": "Date"
+    },
+    {
+      "name": "Description",
+      "key": "description",
+      "type": "string"
     }
   ]
 }

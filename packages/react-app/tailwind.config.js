@@ -15,6 +15,16 @@ module.exports = withMT({
         /** primary */
         prosperity: "#FCFF52",
         forest: "#476520",
+        /** dashbid */
+        purple1: "#773FD2",
+        darkGrey1: "#434343",
+        lightGrey1: "#888888",
+        specialBlack1: "#0B0014",
+        beige1: "#F5E9E2",
+        orangeBeige1: "#F6C492",
+        blue1: "#0E76FD",
+        pastelDarkGreen: "#66CB9F",
+        pastelLeightGreen: "#DEFFEE",
         /** base */
         gypsum: "#FCF6F1",
         sand: "#E7E3D4",

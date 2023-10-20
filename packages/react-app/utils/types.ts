@@ -6,6 +6,7 @@ type ComponentItem = {
 
 type AuctionItem = {
   address: string;
+  manager: string;
   status: "open" | "closed";
   title: string;
   maxOffer: number;

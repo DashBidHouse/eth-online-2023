@@ -30,25 +30,13 @@ export default function BiddingList({
   // call contract auction.finalizeAuction()
 
   return (
-    <Card className="h-full w-full">
-      <CardHeader floated={false} shadow={false} className="rounded-none">
-        <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
-          <div>
-            <Typography variant="h5" color="blue-gray">
-              All Biddings
-            </Typography>
-          </div>
-        </div>
-      </CardHeader>
+    <Card className="shadow-none border-top border-orange-200 h-full w-full bg-beige1">
       <CardBody className="overflow-scroll px-0">
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
               {TABLE_HEAD.map((head) => (
-                <th
-                  key={head}
-                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
-                >
+                <th key={head} className="border-y border-orange-200  p-4">
                   <Typography
                     variant="small"
                     color="blue-gray"
@@ -75,9 +63,7 @@ export default function BiddingList({
                   index
                 ) => {
                   const isLast = index === TABLE_ROWS.length - 1;
-                  const classes = isLast
-                    ? "p-4"
-                    : "p-4 border-b border-blue-gray-50";
+                  const classes = "p-4 ";
 
                   return (
                     <tr key={bidderAddress}>
@@ -88,7 +74,13 @@ export default function BiddingList({
                             color="blue-gray"
                             className="font-bold"
                           >
-                            {bidderAddress}
+                            <a
+                              href="http://"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {bidderAddress}
+                            </a>
                           </Typography>
                         </div>
                       </td>
@@ -145,8 +137,8 @@ export default function BiddingList({
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Button color="blue" className="font-normal">
-                          Accept Bid
+                        <Button color="deep-purple" className="font-normal">
+                          Accept
                           {/* TODO: Import auction status from detail Page  */}
                           {/* TODO: As soon as a bid is accepted, all the other ones are cancled  */}
                         </Button>
@@ -158,22 +150,6 @@ export default function BiddingList({
           </tbody>
         </table>
       </CardBody>
-      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Button variant="outlined" size="sm">
-          Previous
-        </Button>
-        <div className="flex items-center gap-2">
-          <IconButton variant="outlined" size="sm">
-            1
-          </IconButton>
-          <IconButton variant="text" size="sm">
-            2
-          </IconButton>
-        </div>
-        <Button variant="outlined" size="sm">
-          Next
-        </Button>
-      </CardFooter>
     </Card>
   );
 }
