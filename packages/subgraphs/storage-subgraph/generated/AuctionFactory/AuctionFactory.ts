@@ -7,19 +7,19 @@ import {
   Entity,
   Bytes,
   Address,
-  BigInt
+  BigInt,
 } from "@graphprotocol/graph-ts";
 
-export class AuctionCreated extends ethereum.Event {
+export class createdAuction extends ethereum.Event {
   get params(): AuctionCreated__Params {
     return new AuctionCreated__Params(this);
   }
 }
 
 export class AuctionCreated__Params {
-  _event: AuctionCreated;
+  _event: createdAuction;
 
-  constructor(event: AuctionCreated) {
+  constructor(event: createdAuction) {
     this._event = event;
   }
 

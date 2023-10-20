@@ -7,19 +7,19 @@ import {
   Entity,
   Bytes,
   Address,
-  BigInt
+  BigInt,
 } from "@graphprotocol/graph-ts";
 
-export class AuctionCanceled extends ethereum.Event {
+export class canceledAuction extends ethereum.Event {
   get params(): AuctionCanceled__Params {
     return new AuctionCanceled__Params(this);
   }
 }
 
 export class AuctionCanceled__Params {
-  _event: AuctionCanceled;
+  _event: canceledAuction;
 
-  constructor(event: AuctionCanceled) {
+  constructor(event: canceledAuction) {
     this._event = event;
   }
 
@@ -48,16 +48,16 @@ export class AuctionCanceled__Params {
   }
 }
 
-export class AuctionFinalized extends ethereum.Event {
+export class finalizedAuction extends ethereum.Event {
   get params(): AuctionFinalized__Params {
     return new AuctionFinalized__Params(this);
   }
 }
 
 export class AuctionFinalized__Params {
-  _event: AuctionFinalized;
+  _event: finalizedAuction;
 
-  constructor(event: AuctionFinalized) {
+  constructor(event: finalizedAuction) {
     this._event = event;
   }
 
@@ -86,16 +86,16 @@ export class AuctionFinalized__Params {
   }
 }
 
-export class BidCanceled extends ethereum.Event {
+export class canceledBid extends ethereum.Event {
   get params(): BidCanceled__Params {
     return new BidCanceled__Params(this);
   }
 }
 
 export class BidCanceled__Params {
-  _event: BidCanceled;
+  _event: canceledBid;
 
-  constructor(event: BidCanceled) {
+  constructor(event: canceledBid) {
     this._event = event;
   }
 
@@ -108,16 +108,16 @@ export class BidCanceled__Params {
   }
 }
 
-export class BidPlaced extends ethereum.Event {
+export class placedBid extends ethereum.Event {
   get params(): BidPlaced__Params {
     return new BidPlaced__Params(this);
   }
 }
 
 export class BidPlaced__Params {
-  _event: BidPlaced;
+  _event: placedBid;
 
-  constructor(event: BidPlaced) {
+  constructor(event: placedBid) {
     this._event = event;
   }
 
