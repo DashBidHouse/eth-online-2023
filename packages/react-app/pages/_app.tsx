@@ -1,6 +1,6 @@
 import { Alfajores, Celo } from "@celo/rainbowkit-celo/chains";
 import celoGroups from "@celo/rainbowkit-celo/lists";
-import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { RainbowKitProvider, lightTheme } from "@rainbow-me/rainbowkit";
 import { ThemeProvider } from "@material-tailwind/react";
 import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
@@ -43,7 +43,18 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
       <ThemeProvider>
-        <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
+        <RainbowKitProvider
+          theme={lightTheme({
+            accentColor: "#0B0014",
+            accentColorForeground: "white",
+            borderRadius: "large",
+            fontStack: "system",
+            overlayBlur: "small",
+          })}
+          chains={chains}
+          appInfo={appInfo}
+          coolMode={true}
+        >
           <Layout>
             <Component {...pageProps} />
           </Layout>
