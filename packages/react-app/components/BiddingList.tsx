@@ -2,10 +2,7 @@ import {
   Button,
   Card,
   CardBody,
-  CardFooter,
-  CardHeader,
   Chip,
-  IconButton,
   Typography,
 } from "@material-tailwind/react";
 

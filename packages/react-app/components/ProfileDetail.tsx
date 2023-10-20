@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  Typography,
-  Button,
-  Avatar,
-} from "@material-tailwind/react";
+import { Avatar } from "@material-tailwind/react";
 
 export default function ProfileDetail(item: AuctionItem) {
   return (
