@@ -12,48 +12,42 @@ struct AuctionType {
     uint256 submissionDeadline; // input
     uint256 startDat; // created in SC
     uint256 endDate; // created in SC
-    string status; // open | closed | cancled  - // created/set in SC
+    string status; // open | closed | canceled  - // created/set in SC
 }
 struct Bidding {
     address auction; // input
     address bidder; // created/set in SC
     uint256 offer; // input
     string description; // input
-    string status; // accepted | declined | cancled - // created/set in SC
+    string status; // accepted | declined | canceled - // created/set in SC
 }
 
 contract AuctionFactory {
-    address[] public deployedAuctions;
+  uint256 public constant AUCTION_PERIOD = 3600 * 48;
 
-    // auction address => Bidding list
-    mapping(address => Bidding[]) public biddingForAuction;
+  address[] public deployedAuctions;
 
-    event AuctionCreated(
-        address indexed manager,
-        address indexed newAuction,
-        string title,
-        uint256 maxOffer,
-        uint256 endDate
-    );
+  event AuctionCreated(
+    address indexed manager,
+    address indexed newAuction,
+    string title,
+    uint256 maxOffer,
+    uint256 submissionDeadline,
+    uint256 startDate,
+    uint256 endDate
+  );
 
-    function createAuction(
-        string memory title,
-        uint256 maxOffer,
-        uint256 endDate
-    ) public {
-        address newAuction = address(
-            new Auction(msg.sender, title, maxOffer, endDate)
-        );
-        deployedAuctions.push(newAuction);
+  function createAuction(string memory title, string memory description, uint256 maxOffer, uint256 submissionDeadline, uint256 startDate) public {
+    require(maxOffer != 0, 'Factory: maxOffer should > 0');
+    require(startDate > block.timestamp, 'Factory: startDate > now');
 
-        // add start time: Auction should end after 48 hours
-        // add end time for auction
-        // set status to open - after 48 hours it hould automatically be set to closed
+    address newAuction = address(new Auction(msg.sender, title, description, maxOffer, submissionDeadline, startDate, startDate + AUCTION_PERIOD));
+    deployedAuctions.push(newAuction);
 
-        emit AuctionCreated(msg.sender, newAuction, title, maxOffer, endDate);
-    }
+    emit AuctionCreated(msg.sender, newAuction, title, maxOffer, submissionDeadline, startDate, startDate + AUCTION_PERIOD);
+  }
 
-    function getDeployedAuctions() public view returns (address[] memory) {
-        return deployedAuctions;
-    }
+  function getDeployedAuctions() public view returns (address[] memory) {
+    return deployedAuctions;
+  }
 }

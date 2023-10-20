@@ -1,23 +1,50 @@
-specVersion: 0.0.2
+specVersion: 0.0.4
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: Storage
-    network: celo-alfajores
+    name: AuctionFactory
+    network: goerli
     source:
-      address: "0x5ba3ec4808A655381452f4b58C929e4200B4DF69"
-      abi: Storage
+      address: "0x11a52c510a9457d36C1BC9413CEa6Ef1398b7142"
+      abi: AuctionFactory
+      startBlock: 9887611
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - newNumber
+        - AuctionFactory
       abis:
-        - name: Storage
-          file: ./abis/Storage.json
+        - name: AuctionFactory
+          file: ../abis/AuctionFactory.json
       eventHandlers:
-        - event: newNumber(uint256,address)
-          handler: handlenewNumber
-      file: ./src/mapping.ts
+        - event: AuctionCreated(indexed address,indexed address,string,uint256,uint256,uint256,uint256)
+          handler: handleAuctionCreated
+      file: ./src/auctionFactory.ts
+  - kind: ethereum
+    name: Auction
+    network: goerli
+    source:
+      address: "0x91cf1B88B3d3f1b5E489DC3f3FD70875d7cc5A94"
+      abi: Auction
+      startBlock: 9887611
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Auction
+      abis:
+        - name: Auction
+          file: ../abis/Auction.json
+      eventHandlers:
+        - event: AuctionFinalized(indexed address,string,uint256,uint256,indexed address,uint256)
+          handler: handleAuctionFinalized
+        - event: AuctionCanceled(indexed address,string,uint256,uint256,indexed address,uint256)
+          handler: handleAuctionCanceled
+        - event: BidPlaced(uint256,string,indexed address)
+          handler: handleBidPlaced
+        - event: BidCanceled(uint256,indexed address)
+          handler: handleBidCanceled
+      file: ./src/auction.ts

@@ -1,132 +1,120 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import './library/EnumerableSet.sol';
+
 contract Auction {
-    address public manager;
-    string public title;
-    uint256 public maxOffer;
-    uint256 public endDate;
+  using EnumerableSet for EnumerableSet.AddressSet;
 
-    address public winningBidder;
-    uint256 public winningBid;
-    bool public isFinalized;
+  struct AuctionInfo {
+    address manager; 
+    string title; 
+    string description; 
+    uint256 maxOffer; 
+    uint256 submissionDeadline; 
+    uint256 startDate; 
+    uint256 endDate; 
+  }
 
-    // bidder => offer
-    mapping(address => uint256) public bids;
+  enum AuctionStatus {
+    Opened,
+    Closed,
+    Canceled
+  }
 
-    event BidPlaced(uint256 offer, string description, address indexed bidder);
-    event BidCancled(uint256 offer, address indexed bidder);
+  enum BidStatus {
+    Accepted,
+    Declined,
+    Placed,
+    Canceled
+  }
 
-    event AuctionFinalized(
-        address indexed manager,
-        string title,
-        uint256 maxOffer,
-        uint256 endDate,
-        address indexed bidder,
-        uint256 winningBid
-    );
+  struct BidInfo {
+    uint256 offerAmount; 
+    string description; 
+    BidStatus status; 
+  }
 
-    event AuctionCancled(
-        address indexed manager,
-        string title,
-        uint256 maxOffer,
-        uint256 endDate,
-        address indexed bidder,
-        uint256 winningBid
-    );
+  AuctionInfo auctionInfo;
+  AuctionStatus auctionStatus;
 
-    constructor(
-        address _manager,
-        string memory _title,
-        uint256 _maxOffer,
-        uint256 _endDate
-    ) {
-        manager = _manager;
-        title = _title;
-        maxOffer = _maxOffer;
-        endDate = _endDate;
-    }
+  address public winningBidder;
+  uint256 public winningBid;
 
-    function finalizeAuction(
-        address _winningBidder,
-        uint256 _winningBid
-    ) public payable {
-        require(!isFinalized, "Auction has already been finalized.");
-        // require(block.timestamp >= endDate, "Auction is still active.");
-        require(
-            msg.sender == manager,
-            "Only the manager can finalize the auction."
-        );
+  EnumerableSet.AddressSet private bidders;
+  mapping(address => BidInfo) public biddingForAuction;
 
-        winningBidder = _winningBidder;
-        winningBid = _winningBid;
+  uint256 public maxBidOffer;
 
-        // Perform finalization actions, e.g., transfer assets to the winner.
-        // manager has to deposit the funds into the conttract - amount = _winningBid
-        // status of all Biddings has to be set to declined except the choosen one
-        // all deposits of all people that places a bid is being returned IMPORTANT
-        // set auction status to closed
+  event BidPlaced(uint256 offer, string description, address indexed bidder);
+  event BidCanceled(uint256 offer, address indexed bidder);
+  event AuctionFinalized(address indexed manager, string title, uint256 maxOffer, uint256 endDate, address indexed bidder, uint256 winningBid);
+  event AuctionCanceled(address indexed manager, string title, uint256 maxOffer, uint256 endDate, address indexed bidder, uint256 winningBid);
 
-        // Capture information about the finalization
-        emit AuctionFinalized(
-            manager,
-            title,
-            maxOffer,
-            endDate,
-            winningBidder,
-            winningBid
-        );
+  constructor(
+    address _manager,
+    string memory _title,
+    string memory _description,
+    uint256 _maxOffer,
+    uint256 _submissionDeadline,
+    uint256 _startDate,
+    uint256 _endDate
+  ) {
+    auctionInfo = AuctionInfo(_manager, _title, _description, _maxOffer, _submissionDeadline, _startDate, _endDate);
+    auctionStatus = AuctionStatus.Opened;
+    maxBidOffer = _maxOffer + 1;
+  }
 
-        isFinalized = true;
-    }
+  modifier onlyManager() {
+    require(auctionInfo.manager == msg.sender, 'Caller is not manager');
+    _;
+  }
 
-    function cancelAuction(address _winningBidder, uint256 _winningBid) public {
-        require(!isFinalized, "Auction has already been finalized.");
-        // require(block.timestamp >= endDate, "Auction is still active.");
-        require(
-            msg.sender == manager,
-            "Only the manager can finalize the auction."
-        );
+  function getBidders() external view returns (address[] memory) {
+    return bidders.values();
+  }
 
-        // all deposits of all people that places a bid is being returned IMPORTANT
-        // status of Auction is set to canceled
+  function finalizeAuction(address _winningBidder, uint256 _winningBid) public onlyManager {
+    require(auctionStatus == AuctionStatus.Opened, 'Auction has already been finalized');
+    require(biddingForAuction[_winningBidder].status != BidStatus.Canceled, 'Canceled Bid');
+    
+    winningBidder = _winningBidder;
+    winningBid = _winningBid;
 
-        emit AuctionCancled(
-            manager,
-            title,
-            maxOffer,
-            endDate,
-            winningBidder,
-            winningBid
-        );
+    // TODO: add logic for payment transfer. Blocked by finalization of WorkContract.sol
 
-        isFinalized = true;
-    }
+    biddingForAuction[winningBidder].status = BidStatus.Accepted;
+    auctionStatus = AuctionStatus.Closed;
+    emit AuctionFinalized(auctionInfo.manager, auctionInfo.title, auctionInfo.maxOffer, auctionInfo.endDate, winningBidder, winningBid);
+  }
 
-    function placeBid(
-        uint256 _offer,
-        string memory description
-    ) public payable {
-        // require(block.timestamp < endDate, "Auction has ended.");
-        // require(msg.value <= _offer, "Bid amount must match the offer.");
-        // require(msg.sender != manager, "You can't bid on your own auction.");
+  function canelAuction() public onlyManager {
+    require(auctionStatus == AuctionStatus.Opened, 'Auction has already been finalized.');
+    
+    auctionStatus = AuctionStatus.Canceled;
 
-        // transfer tokens to the contract from bidder amount ==  offer
-        // add bid to the biddingForAuction mapping
-        // add bid to the auction
+    emit AuctionCanceled(auctionInfo.manager, auctionInfo.title, auctionInfo.maxOffer, auctionInfo.endDate, winningBidder, winningBid);
+  }
 
-        bids[msg.sender] = _offer;
-        emit BidPlaced(_offer, description, msg.sender);
-    }
+  function placeBid(uint256 _offer, string memory description) public {
+    require(!bidders.contains(msg.sender), 'Already joined');
+    require(auctionStatus == AuctionStatus.Opened && auctionInfo.endDate > block.timestamp, 'Auction has already been finalized.');
+    require(maxBidOffer > _offer, 'Offer should smaller than prev offer');
+    require(msg.sender != auctionInfo.manager, "You can't bid on your own auction.");
 
-    function cancelBid(uint256 _offer) public payable {
-        // require(block.timestamp < endDate, "Auction has ended.");
-        // require(msg.value <= _offer, "Bid amount must match the offer.");
+    biddingForAuction[msg.sender] = BidInfo(_offer, description, BidStatus.Placed);
+    maxBidOffer = _offer;
+    bidders.add(msg.sender);
 
-        // set bid status to cancled
-        // return deposit
+    emit BidPlaced(_offer, description, msg.sender);
+  }
 
-        bids[msg.sender] = _offer;
-        emit BidCancled(_offer, msg.sender);
-    }
+  function cancelBid() public {
+    require(auctionStatus == AuctionStatus.Opened && auctionInfo.endDate > block.timestamp, 'Auction has already been finalized.');
+    
+    BidInfo storage bidInfo_ = biddingForAuction[msg.sender];
+    bidInfo_.status = BidStatus.Canceled;
+
+    emit BidCanceled(bidInfo_.offerAmount, msg.sender);
+  }
 }
