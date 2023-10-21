@@ -41,6 +41,12 @@ module.exports = {
     scrollSepolia: {
       url: 'https://sepolia-rpc.scroll.io/' || '',
       accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      chainId: 534351,
+    },
+    mantleTestnet: {
+      url: 'https://rpc.testnet.mantle.xyz/' || '',
+      accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      chainId: 5001,
     },
     goerli: {
       url: 'https:///eth-goerli.alchemyapi.io/v2/y6JWvczJyMCtx6wgho1QMqOrRFUoVadE',
@@ -53,7 +59,33 @@ module.exports = {
       alfajores: process.env.CELOSCAN_API_KEY,
       celo: process.env.CELOSCAN_API_KEY,
       goerli: 'XFAGSFB6UXE9MFTA9AHJMGHMXI8IXRVCHW',
+      optimismGoerli: 'FP31T2R7TBTXUR7SWXV8QHRCMHMGZTSKGA',
     },
+    customChains: [
+      {
+        network: 'optimismGoerli',
+        chainId: 420,
+        urls: {
+          apiURL: 'https://api-optimistic.etherscan.io/api',
+          browserURL: 'https://optimistic.etherscan.io/',
+        },
+      },
+      {
+        network: 'scrollSepolia',
+        chainId: 534351,
+        urls: {
+          browserURL: 'https://sepolia-blockscout.scroll.io',
+        },
+      },
+      {
+        network: 'mantleTestnet',
+        chainId: 5001,
+        urls: {
+          apiURL: 'https://explorer.mantle.xyz/api',
+          browserURL: 'https://explorer.mantle.xyz/',
+        },
+      },
+    ],
   },
   solidity: {
     version: '0.8.0',

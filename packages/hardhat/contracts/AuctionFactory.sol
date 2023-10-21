@@ -12,8 +12,8 @@ contract AuctionFactory {
     address indexed manager,
     address indexed newAuction,
     string title,
-    string description,
     uint256 maxOffer,
+    string description,
     uint256 submissionDeadline,
     uint256 startDate,
     uint256 endDate
