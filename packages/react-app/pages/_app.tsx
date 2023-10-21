@@ -45,7 +45,7 @@ function App({ Component, pageProps }: AppProps) {
       <ThemeProvider>
         <RainbowKitProvider
           theme={lightTheme({
-            accentColor: "#0B0014",
+            accentColor: "#66CB9F",
             accentColorForeground: "white",
             borderRadius: "large",
             fontStack: "system",
