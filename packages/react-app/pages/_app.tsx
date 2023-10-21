@@ -8,7 +8,7 @@ import { WagmiConfig, configureChains, createConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import Layout from "../components/Layout";
 import "../styles/globals.css";
-import { optimismGoerli } from "viem/chains";
+import { optimismGoerli, polygonMumbai } from "viem/chains";
 import { NETWORKS } from "../utils/networks";
 
 const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID as string; // get one at https://cloud.walletconnect.com/app
@@ -18,6 +18,7 @@ const { chains, publicClient } = configureChains(
     Celo,
     Alfajores,
     optimismGoerli,
+    polygonMumbai,
     NETWORKS.mantleTestnet,
     NETWORKS.scrollSepolia,
   ],

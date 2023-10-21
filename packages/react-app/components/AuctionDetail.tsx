@@ -4,6 +4,7 @@ import { bidsClosed, bidsOpen } from "../utils/mockData";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { AuctionItem, ComponentItem } from "@/utils/types";
+import SismoConnect from "./SismoConnect";
 
 export default function AuctionDetail({
   detailFields,
@@ -20,7 +21,8 @@ export default function AuctionDetail({
   // call contract auction.cancelAuction() - cancel Job
 
   const [deadline, setDeadline] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("Opened");
+  const [userState, setUserState] = useState("");
 
   const makeOffer = async (status: string) => {
     setStatus(status);
@@ -30,8 +32,12 @@ export default function AuctionDetail({
     bidder: string;
     offer: number;
   }) => {
+    user
+      ? setUserState(typeof user === "string" ? user : user[0])
+      : setUserState("analyst");
+
     console.log(data);
-    setStatus("Closed");
+    // setStatus("Closed");
     console.log(status);
   };
   function updateCountdown(deadline: Date) {
@@ -90,12 +96,13 @@ export default function AuctionDetail({
             </div>
           </div>
         </Card>
+        <SismoConnect></SismoConnect>
         {status === "Canceled" ? (
           <Typography color="red" variant="h4" className="ml-3 mt-4">
             Canceled
           </Typography>
         ) : status === "Opened" ? (
-          user === "client" ? (
+          userState === "client" ? (
             <div className="flex flex-col">
               <div>
                 <Button
@@ -115,7 +122,7 @@ export default function AuctionDetail({
               </div>
             </div>
           ) : (
-            user === "analyst" && (
+            userState === "analyst" && (
               <div className="flex flex-col">
                 <div>
                   <Button className="m-3" color="deep-purple" ripple={true}>
