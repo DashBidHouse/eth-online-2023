@@ -3,8 +3,6 @@ require('hardhat-deploy');
 const { task } = require('hardhat/config');
 require('hardhat-celo');
 
-const defaultNetwork = 'alfajores';
-
 // This is the mnemonic used by celo-devchain
 const DEVCHAIN_MNEMONIC = 'concert load couple harbor equip island argue ramp clarify fence smart topic';
 
@@ -15,14 +13,8 @@ const DEVCHAIN_MNEMONIC = 'concert load couple harbor equip island argue ramp cl
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  defaultNetwork,
+  defaultNetwork: 'hardhat',
   networks: {
-    localhost: {
-      url: 'http://127.0.0.1:8545',
-      accounts: {
-        mnemonic: DEVCHAIN_MNEMONIC,
-      },
-    },
     alfajores: {
       url: 'https://alfajores-forno.celo-testnet.org',
       accounts: [process.env.PRIVATE_KEY],
@@ -51,6 +43,11 @@ module.exports = {
     goerli: {
       url: 'https:///eth-goerli.alchemyapi.io/v2/y6JWvczJyMCtx6wgho1QMqOrRFUoVadE',
       accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+    hardhat: {
+      forking: {
+        url: 'https://sepolia-rpc.scroll.io/',
+      },
     },
   },
   etherscan: {

@@ -12,7 +12,7 @@ describe('Auction', function () {
 
   // contract
   let auctionFactoryContract;
-  let autionContract;
+  let auctionContract;
 
   // Constant
   const MAX_OFFER = 500;
@@ -30,43 +30,47 @@ describe('Auction', function () {
   });
   describe('Main', async () => {
     it('Create Auction', async () => {
-      await auctionFactoryContract.createAuction('Auction1', 'Description', MAX_OFFER, SUBMISSION_DEADLINE, Math.floor(Date.now() / 1000) + 20);
+      await auctionFactoryContract.createAuction('Auction1', MAX_OFFER, 'Description', SUBMISSION_DEADLINE);
       const deployedAuctions = await auctionFactoryContract.getDeployedAuctions();
-      autionContract = await ethers.getContractAt('Auction', deployedAuctions[0]);
+      auctionContract = await ethers.getContractAt('Auction', deployedAuctions[0]);
     });
     it('Place Bid', async () => {
-      await autionContract.connect(alice).placeBid(MAX_OFFER, 'first Bid');
-      await expect(autionContract.connect(bob).placeBid(MAX_OFFER, 'second Bid')).to.be.reverted;
-      await autionContract.connect(bob).placeBid(MAX_OFFER - 1, 'second Bid');
-      expect((await autionContract.maxBidOffer()) === MAX_OFFER - 1).to.be.equal;
+      await auctionContract.connect(alice).placeBid(MAX_OFFER, 'first Bid');
+      // if the bidding amount is equal or higher it should fail
+      await expect(auctionContract.connect(bob).placeBid(MAX_OFFER, 'second Bid')).to.be.reverted;
+
+      // if the bidding amount is lower it should succeed
+      await auctionContract.connect(bob).placeBid(MAX_OFFER - 1, 'second Bid');
+      expect((await auctionContract.maxBidOffer()) === MAX_OFFER - 1).to.be.equal;
+
+      // Bidder should not be able to place more than one bid
+      await expect(auctionContract.connect(bob).placeBid(MAX_OFFER - 2, 'third Bid')).to.be.reverted;
     });
 
     it('Cancel Bid', async () => {
-      await autionContract.connect(quinn).placeBid(MAX_OFFER - 3, 'third Bid');
-      // Can't bid more than once
-      await expect(autionContract.connect(quinn).placeBid(MAX_OFFER - 4, 'third Bid')).to.be.reverted;
-      await autionContract.connect(quinn).cancelBid();
+      await auctionContract.connect(quinn).placeBid(MAX_OFFER - 3, 'fourth Bid');
+      await auctionContract.connect(quinn).cancelBid();
 
-      const biddingForAuction = autionContract.biddingForAuction(quinn.address);
+      const biddingForAuction = auctionContract.biddingByBidder(quinn.address);
       expect(biddingForAuction.status === 3).to.be.equal;
     });
 
     it('Get Biddings', async () => {
-      const bidders = await autionContract.getBidders();
+      const bidders = await auctionContract.getBidders();
       for (let i = 0; i < bidders.length; i++) {
-        let biddingForAuction = await autionContract.biddingForAuction(bidders[i]);
+        let biddingByBidder = await auctionContract.biddingByBidder(bidders[i]);
       }
     });
 
     it('Close Auction', async () => {
-      const bidders = await autionContract.getBidders();
+      const bidders = await auctionContract.getBidders();
 
       const winner = bidders[bidders.length - 2];
-      const winnerBid = await autionContract.biddingForAuction(winner);
-      await autionContract.finalizeAuction(winner, winnerBid.offerAmount);
+      const winnerBid = await auctionContract.biddingByBidder(winner);
+      await auctionContract.finalizeAuction(winner, winnerBid.offerAmount);
 
-      expect((await autionContract.winningBidder()) === winner).to.be.equal;
-      expect((await autionContract.winningBid()) === winnerBid).to.be.equal;
+      expect(await auctionContract.winningBidder()).to.equal(winner);
+      expect(await auctionContract.winningBid()).to.equal(winnerBid.offerAmount);
     });
   });
 });

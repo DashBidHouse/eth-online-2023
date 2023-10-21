@@ -9,11 +9,12 @@ contract Auction {
   struct AuctionInfo {
     address manager;
     string title;
-    string description;
     uint256 maxOffer;
+    string description;
     uint256 submissionDeadline;
     uint256 startDate;
     uint256 endDate;
+    AuctionStatus status;
   }
 
   struct BidInfo {
@@ -35,8 +36,8 @@ contract Auction {
     Canceled
   }
 
-  AuctionInfo auctionInfo;
-  AuctionStatus auctionStatus;
+  AuctionInfo public auctionInfo;
+  AuctionStatus public auctionStatus;
 
   address public winningBidder;
   uint256 public winningBid;
@@ -46,8 +47,16 @@ contract Auction {
 
   uint256 public maxBidOffer;
 
-  event placedBid(uint256 offer, string description, address indexed auction, address indexed bidder);
-  event canceledBid(uint256 offer, string description, address indexed auction, address indexed bidder);
+  event createdAuction(
+    address indexed manager,
+    string title,
+    uint256 maxOffer,
+    string description,
+    uint256 submissionDeadline,
+    uint256 startDate,
+    uint256 endDate,
+    AuctionStatus status
+  );
   event finalizedAuction(
     address indexed manager,
     string title,
@@ -55,22 +64,27 @@ contract Auction {
     uint256 maxOffer,
     uint256 endDate,
     address indexed bidder,
-    uint256 winningBid
+    uint256 winningBid,
+    AuctionStatus status
   );
-  event canceledAuction(address indexed manager, string title, string description, uint256 maxOffer, uint256 endDate);
+  event canceledAuction(address indexed manager, string title, string description, uint256 maxOffer, uint256 endDate, AuctionStatus status);
+  event placedBid(uint256 offer, string description, address indexed auction, address indexed bidder, BidStatus status);
+  event canceledBid(uint256 offer, string description, address indexed auction, address indexed bidder, BidStatus status);
 
   constructor(
     address _manager,
     string memory _title,
-    string memory _description,
     uint256 _maxOffer,
+    string memory _description,
     uint256 _submissionDeadline,
     uint256 _startDate,
     uint256 _endDate
   ) {
-    auctionInfo = AuctionInfo(_manager, _title, _description, _maxOffer, _submissionDeadline, _startDate, _endDate);
     auctionStatus = AuctionStatus.Opened;
+    auctionInfo = AuctionInfo(_manager, _title, _maxOffer, _description, _submissionDeadline, _startDate, _endDate, auctionStatus);
     maxBidOffer = _maxOffer + 1;
+
+    emit createdAuction(_manager, _title, _maxOffer, _description, _submissionDeadline, _startDate, _endDate, auctionStatus);
   }
 
   modifier onlyManager() {
@@ -100,16 +114,17 @@ contract Auction {
       auctionInfo.maxOffer,
       auctionInfo.endDate,
       winningBidder,
-      winningBid
+      winningBid,
+      auctionStatus
     );
   }
 
-  function canelAuction() public onlyManager {
+  function cancelAuction() public onlyManager {
     require(auctionStatus == AuctionStatus.Opened, 'Auction has already been finalized.');
 
     auctionStatus = AuctionStatus.Canceled;
 
-    emit canceledAuction(auctionInfo.manager, auctionInfo.title, auctionInfo.description, auctionInfo.maxOffer, auctionInfo.endDate);
+    emit canceledAuction(auctionInfo.manager, auctionInfo.title, auctionInfo.description, auctionInfo.maxOffer, auctionInfo.endDate, auctionStatus);
   }
 
   function placeBid(uint256 _offer, string memory description) public {
@@ -122,7 +137,7 @@ contract Auction {
     maxBidOffer = _offer;
     bidders.add(msg.sender);
 
-    emit placedBid(_offer, description, address(this), msg.sender);
+    emit placedBid(_offer, description, address(this), msg.sender, BidStatus.Placed);
   }
 
   function cancelBid() public {
@@ -131,6 +146,6 @@ contract Auction {
     BidInfo storage bidInfo_ = biddingByBidder[msg.sender];
     bidInfo_.status = BidStatus.Canceled;
 
-    emit canceledBid(bidInfo_.offerAmount, bidInfo_.description, address(this), msg.sender);
+    emit canceledBid(bidInfo_.offerAmount, bidInfo_.description, address(this), msg.sender, BidStatus.Canceled);
   }
 }

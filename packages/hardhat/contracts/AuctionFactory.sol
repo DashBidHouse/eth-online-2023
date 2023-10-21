@@ -8,25 +8,13 @@ contract AuctionFactory {
 
   address[] public deployedAuctions;
 
-  event createdAuction(
-    address indexed manager,
-    address indexed newAuction,
-    string title,
-    uint256 maxOffer,
-    string description,
-    uint256 submissionDeadline,
-    uint256 startDate,
-    uint256 endDate
-  );
-
-  function createAuction(string memory title, string memory description, uint256 maxOffer, uint256 submissionDeadline, uint256 startDate) public {
+  function createAuction(string memory title, uint256 maxOffer, string memory description, uint256 submissionDeadline) public {
     require(maxOffer != 0, 'Factory: maxOffer should be bigger than 0');
-    require(startDate > block.timestamp, 'Factory: Start Date needs to be in the future');
 
-    address newAuction = address(new Auction(msg.sender, title, description, maxOffer, submissionDeadline, startDate, startDate + AUCTION_PERIOD));
+    address newAuction = address(
+      new Auction(msg.sender, title, maxOffer, description, submissionDeadline, block.timestamp, block.timestamp + AUCTION_PERIOD)
+    );
     deployedAuctions.push(newAuction);
-
-    emit createdAuction(msg.sender, newAuction, title, maxOffer, description, submissionDeadline, startDate, startDate + AUCTION_PERIOD);
   }
 
   function getDeployedAuctions() public view returns (address[] memory) {

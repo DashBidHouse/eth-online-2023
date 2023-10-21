@@ -3,31 +3,34 @@ type CreateAuction @entity {
   manager: Bytes
   newAuction: Bytes
   title: String
-  description: String
   maxOffer: BigInt
+  description: String
   submissionDeadline: BigInt
   startDate: BigInt
   endDate: BigInt
+  status: String
 }
 
 type FinalizeAuction @entity {
   id: ID!
   manager: Bytes
   title: String
-  description: String
   maxOffer: BigInt
+  description: String
   endDate: BigInt
   bidder: Bytes
   winningBid: BigInt
+  status: String
 }
 
 type CancelAuction @entity {
   id: ID!
   manager: Bytes
   title: String
-  description: String
   maxOffer: BigInt
+  description: String
   endDate: BigInt
+  status: String
 }
 
 type PlaceBid @entity {
@@ -35,7 +38,8 @@ type PlaceBid @entity {
   offer: BigInt
   auction: Bytes!
   description: String
-  bidder: Bytes!
+  bidder: Bytes
+  status: String
 }
 
 type CancelBid @entity {
@@ -44,4 +48,5 @@ type CancelBid @entity {
   auction: Bytes!
   description: String
   bidder: Bytes!
+  status: String
 }
