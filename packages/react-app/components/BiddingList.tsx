@@ -5,6 +5,7 @@ import {
   Chip,
   Typography,
 } from "@material-tailwind/react";
+import { useRouter } from "next/router";
 
 const TABLE_HEAD = [
   "Bidder",
@@ -21,6 +22,9 @@ export default function BiddingList({
 }: {
   biddingList: Array<BiddingItem>;
 }) {
+  const router = useRouter();
+  const { user } = router.query;
+
   // TODO: Replace mockdata with data from subgraph or tabelland
   const TABLE_ROWS = biddingList;
 
@@ -134,11 +138,19 @@ export default function BiddingList({
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Button color="deep-purple" className="font-normal">
-                          Accept
-                          {/* TODO: Import auction status from detail Page  */}
-                          {/* TODO: As soon as a bid is accepted, all the other ones are cancled  */}
-                        </Button>
+                        {user === "client" ? (
+                          <Button color="deep-purple" className="font-normal">
+                            Accept
+                            {/* TODO: Import auction status from detail Page  */}
+                            {/* TODO: As soon as a bid is accepted, all the other ones are cancled  */}
+                          </Button>
+                        ) : (
+                          <Button color="deep-purple" className="font-normal">
+                            Cancel
+                            {/* TODO: Import auction status from detail Page  */}
+                            {/* TODO: As soon as a bid is accepted, all the other ones are cancled  */}
+                          </Button>
+                        )}
                       </td>
                     </tr>
                   );

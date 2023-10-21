@@ -9,6 +9,16 @@ export default function CreateAuction({
   const router = useRouter();
   const { user } = router.query;
 
+  const createAuction = () => {
+    const id = "12";
+    if ("transaction successful") {
+      router.push({
+        pathname: `/project/${id}`,
+        query: { user }, // Pass the property as a query parameter
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center">
       <Typography className="mb-10">
@@ -31,17 +41,12 @@ export default function CreateAuction({
           </div>
         )}
         <Button
-          onClick={() => {
-            router.push({
-              pathname: "/auctionListPage",
-              query: { user }, // Pass the property as a query parameter
-            });
-          }}
+          onClick={createAuction}
           className="m-5 w-1/3"
           color="deep-purple"
           ripple={true}
         >
-          Place Auction
+          Create Project
         </Button>
       </Card>
     </div>

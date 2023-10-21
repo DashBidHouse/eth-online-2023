@@ -2,6 +2,7 @@ import { Button, Card, Input, Typography } from "@material-tailwind/react";
 import BiddingList from "./BiddingList";
 import { bids } from "../utils/mockData";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 export default function AuctionDetail({
   detailFields,
@@ -10,6 +11,10 @@ export default function AuctionDetail({
   detailFields: Array<ComponentItem>;
   auctionItem: AuctionItem;
 }) {
+  const router = useRouter();
+  const { user } = router.query;
+
+  // countdown until the auction ends
   const [deadline, setDeadline] = useState("");
   function updateCountdown(deadline: Date) {
     const now = new Date();
@@ -69,16 +74,10 @@ export default function AuctionDetail({
             </div>
           </div>
         </Card>
-        {false && (
+        {user === "client" ? (
           <div className="flex flex-col">
-            <Button className="m-3" color="deep-purple" ripple={true}>
-              Submit Work
-            </Button>{" "}
             <Button className="m-3" color="orange" ripple={true}>
-              Cancel Job
-            </Button>{" "}
-            <Button className="m-3" color="orange" ripple={true}>
-              Report
+              Cancel Project
             </Button>{" "}
             <Typography color="gray" variant="h4" className="ml-3">
               Deadline
@@ -87,30 +86,42 @@ export default function AuctionDetail({
               {deadline}
             </Typography>
           </div>
-        )}
-        {true && (
+        ) : (
           <div className="flex flex-col">
-            <Button className="m-3" color="deep-purple" ripple={true}>
-              Make an Offer
-            </Button>{" "}
-            <div className="m-4">
-              <Input
-                crossOrigin="true"
-                variant="standard"
-                label="Offer"
-                type="number"
-                size="md"
-              />
-              <div className="m-4"></div>
+            {true ? (
+              <div>
+                <Button className="m-3" color="deep-purple" ripple={true}>
+                  Make an Offer
+                </Button>
+                <div className="m-4">
+                  <Input
+                    crossOrigin="true"
+                    variant="standard"
+                    label="Offer"
+                    type="number"
+                    size="md"
+                  />
+                  <div className="m-4"></div>
 
-              <Input
-                crossOrigin="true"
-                variant="standard"
-                label="Description of your proposal"
-                type="string"
-                size="lg"
-              />
-            </div>
+                  <Input
+                    crossOrigin="true"
+                    variant="standard"
+                    label="Description of your proposal"
+                    type="string"
+                    size="lg"
+                  />
+                </div>
+              </div>
+            ) : (
+              <div>
+                <Button className="m-3" color="orange" ripple={true}>
+                  Report
+                </Button>{" "}
+                <Button className="m-3" color="deep-purple" ripple={true}>
+                  Submit Work
+                </Button>{" "}
+              </div>
+            )}
             <Typography color="gray" variant="h4" className="ml-3 mt-4">
               Deadline
             </Typography>

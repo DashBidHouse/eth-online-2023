@@ -18,7 +18,7 @@ export default function AuctionListPage() {
   }, [address, isConnected]);
 
   return (
-    <div className="flex flex-col justify-center align-items">
+    <div className="flex flex-col justify-center items-center">
       {user === "client" ? (
         <Button
           onClick={() => {
@@ -28,6 +28,7 @@ export default function AuctionListPage() {
             });
           }}
           color="deep-purple"
+          className="m-5"
         >
           Create Project
         </Button>
