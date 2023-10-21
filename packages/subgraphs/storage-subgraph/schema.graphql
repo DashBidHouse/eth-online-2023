@@ -1,43 +1,47 @@
-type AuctionCreate @entity {
+type CreateAuction @entity {
   id: ID!
   manager: Bytes
   newAuction: Bytes
   title: String
+  description: String
   maxOffer: BigInt
   submissionDeadline: BigInt
   startDate: BigInt
   endDate: BigInt
 }
 
-type AuctionFinalize @entity {
+type FinalizeAuction @entity {
   id: ID!
   manager: Bytes
   title: String
+  description: String
   maxOffer: BigInt
   endDate: BigInt
   bidder: Bytes
   winningBid: BigInt
 }
 
-type AuctionCancel @entity {
+type CancelAuction @entity {
   id: ID!
   manager: Bytes
   title: String
+  description: String
   maxOffer: BigInt
   endDate: BigInt
-  bidder: Bytes
-  winningBid: BigInt
 }
 
-type BidPlace @entity {
+type PlaceBid @entity {
   id: ID!
   offer: BigInt
+  auction: Bytes!
   description: String
   bidder: Bytes!
 }
 
-type BidCancel @entity {
+type CancelBid @entity {
   id: ID!
   offer: BigInt
+  auction: Bytes!
+  description: String
   bidder: Bytes!
 }

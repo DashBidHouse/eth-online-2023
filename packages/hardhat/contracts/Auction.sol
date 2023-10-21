@@ -46,10 +46,18 @@ contract Auction {
 
   uint256 public maxBidOffer;
 
-  event placedBid(uint256 offer, string description, address auction, address indexed bidder);
-  event canceledBid(uint256 offer, address auction, address indexed bidder);
-  event finalizedAuction(address indexed manager, string title, uint256 maxOffer, uint256 endDate, address indexed bidder, uint256 winningBid);
-  event canceledAuction(address indexed manager, string title, uint256 maxOffer, uint256 endDate, address indexed bidder, uint256 winningBid);
+  event placedBid(uint256 offer, string description, address indexed auction, address indexed bidder);
+  event canceledBid(uint256 offer, string description, address indexed auction, address indexed bidder);
+  event finalizedAuction(
+    address indexed manager,
+    string title,
+    string description,
+    uint256 maxOffer,
+    uint256 endDate,
+    address indexed bidder,
+    uint256 winningBid
+  );
+  event canceledAuction(address indexed manager, string title, string description, uint256 maxOffer, uint256 endDate);
 
   constructor(
     address _manager,
@@ -85,7 +93,15 @@ contract Auction {
 
     biddingByBidder[winningBidder].status = BidStatus.Accepted;
     auctionStatus = AuctionStatus.Closed;
-    emit finalizedAuction(auctionInfo.manager, auctionInfo.title, auctionInfo.maxOffer, auctionInfo.endDate, winningBidder, winningBid);
+    emit finalizedAuction(
+      auctionInfo.manager,
+      auctionInfo.title,
+      auctionInfo.description,
+      auctionInfo.maxOffer,
+      auctionInfo.endDate,
+      winningBidder,
+      winningBid
+    );
   }
 
   function canelAuction() public onlyManager {
@@ -93,7 +109,7 @@ contract Auction {
 
     auctionStatus = AuctionStatus.Canceled;
 
-    emit canceledAuction(auctionInfo.manager, auctionInfo.title, auctionInfo.maxOffer, auctionInfo.endDate, winningBidder, winningBid);
+    emit canceledAuction(auctionInfo.manager, auctionInfo.title, auctionInfo.description, auctionInfo.maxOffer, auctionInfo.endDate);
   }
 
   function placeBid(uint256 _offer, string memory description) public {
@@ -115,6 +131,6 @@ contract Auction {
     BidInfo storage bidInfo_ = biddingByBidder[msg.sender];
     bidInfo_.status = BidStatus.Canceled;
 
-    emit canceledBid(bidInfo_.offerAmount, address(this), msg.sender);
+    emit canceledBid(bidInfo_.offerAmount, bidInfo_.description, address(this), msg.sender);
   }
 }

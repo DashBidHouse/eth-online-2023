@@ -19,7 +19,7 @@ dataSources:
         - name: AuctionFactory
           file: ../abis/AuctionFactory.json
       eventHandlers:
-        - event: createdAuction(indexed address,indexed address,string,uint256,uint256,uint256,uint256)
+        - event: createdAuction(indexed address,indexed address,string,string,uint256,uint256,uint256,uint256)
           handler: handleAuctionCreated
       file: ./src/auctionFactory.ts
   - kind: ethereum
@@ -39,12 +39,12 @@ dataSources:
         - name: Auction
           file: ../abis/Auction.json
       eventHandlers:
-        - event: finalizedAuction(indexed address,string,uint256,uint256,indexed address,uint256)
-          handler: handleAuctionFinalized
-        - event: canceledAuction(indexed address,string,uint256,uint256,indexed address,uint256)
-          handler: handleAuctionCanceled
-        - event: placedBid(uint256,string,indexed address)
-          handler: handleBidPlaced
-        - event: canceledBid(uint256,indexed address)
-          handler: handleBidCanceled
+        - event: finalizedAuction(indexed address,string,string,uint256,uint256,indexed address,uint256)
+          handler: handleFinalizedAuction
+        - event: canceledAuction(indexed address,string,string,uint256,uint256,indexed address,uint256)
+          handler: handleCanceledAuction
+        - event: placedBid(uint256,indexed address,string,indexed address)
+          handler: handlePlacedBid
+        - event: canceledBid(uint256,indexed address,string,indexed address)
+          handler: handleCanceledBid
       file: ./src/auction.ts
