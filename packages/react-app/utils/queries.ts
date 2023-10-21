@@ -1,86 +1,87 @@
-export const allAuctions = `
-      query ($walletAddress: String) {
-        users(id: $walletAddress) {
-          batchesOwned(orderBy: id, orderDirection: desc) {
-            id
-            tx
-            serialNumber
-            quantity
-            confirmationStatus
-            comments {
-              id
-              comment
-              sender {
-                id
-              }
-            }
-            creator {
-              id
-            }
-          }
-        }
-      }
-    `;
+import { gql } from "@urql/core";
 
-export const allAuctionsFilteredByManager = `
-      query ($walletAddress: String) {
-        users(id: $walletAddress) {
-          batchesOwned(orderBy: id, orderDirection: desc) {
-            id
-            tx
-            serialNumber
-            quantity
-            confirmationStatus
-            comments {
-              id
-              comment
-              sender {
-                id
-              }
-            }
-            creator {
-              id
-            }
-          }
-        }
-      }
-    `;
+export const allAuctions = gql`
+  query {
+    createdAuctions {
+      title
+      id
+      description
+      endDate
+      manager
+      maxOffer
+      status
+      transactionHash
+    }
+  }
+`;
 
-export const allAuctionsFilteredByAnalyst = `
-      query ($walletAddress: String) {
-        users(id: $walletAddress) {
-          batchesOwned(orderBy: id, orderDirection: desc) {
-            id
-            tx
-            serialNumber
-            quantity
-            confirmationStatus
-            comments {
-              id
-              comment
-              sender {
-                id
-              }
-            }
-            creator {
-              id
-            }
-          }
-        }
-      }
-    `;
+export const allAuctionsFilteredByManager = gql`
+  query ($manager: String) {
+    createdAuctions(where: { manager: $manager }) {
+      title
+      id
+      description
+      endDate
+      manager
+      maxOffer
+      status
+      transactionHash
+    }
+  }
+`;
 
-export const allBidsRelatedToOneAuction = `
-      query ($walletAddress: String) {
-      }
-    `;
+export const allAuctionsFilteredByAnalyst = gql`
+  query ($auction: String) {
+    createdAuctions(where: { auction: $auction }) {
+      title
+      id
+      description
+      endDate
+      manager
+      maxOffer
+      status
+      transactionHash
+    }
+  }
+`;
 
-export const allBidsRelatedToOneBidder = `
-      query ($walletAddress: String) {
-      }
-    `;
+export const allBidsRelatedToOneAuction = gql`
+  query ($auction: String) {
+    createdBids(where: { auction: $auction }) {
+      offer
+      auction
+      description
+      bidder
+      status
+      transactionHash
+    }
+  }
+`;
 
-export const auctionById = `
-      query ($id: String) {
-      }
-    `;
+export const allBidsRelatedToOneBidder = gql`
+  query ($walletAddress: String) {
+    createdBids(where: { bidder: $walletAddress }) {
+      offer
+      auction
+      description
+      bidder
+      status
+      transactionHash
+    }
+  }
+`;
+
+export const auctionById = gql`
+  query ($id: String) {
+    createdAuction(id: $id) {
+      title
+      id
+      description
+      endDate
+      manager
+      maxOffer
+      status
+      transactionHash
+    }
+  }
+`;

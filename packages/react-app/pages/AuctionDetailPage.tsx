@@ -1,10 +1,9 @@
 import AuctionDetail from "@/components/AuctionDetail";
 import { useCallback, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import components from "../../utils/components.json";
-import { auctions } from "../../utils/mockData";
+import components from "../utils/components.json";
+import { auctions } from "../utils/mockData";
 import { Typography } from "@material-tailwind/react";
-import { useRouter } from "next/router";
 import { graphClient } from "@/utils/graphClient";
 import { allBidsRelatedToOneAuction, auctionById } from "@/utils/queries";
 import { AuctionItem, BiddingItem, ComponentItem } from "@/utils/types";
@@ -12,8 +11,6 @@ import { AuctionItem, BiddingItem, ComponentItem } from "@/utils/types";
 const detailFields: Array<ComponentItem> = components.auctionItems;
 
 export default function AuctionDetailPage() {
-  const router = useRouter();
-  const { user } = router.query;
   const [userAddress, setUserAddress] = useState("");
   const { address, isConnected } = useAccount();
 
