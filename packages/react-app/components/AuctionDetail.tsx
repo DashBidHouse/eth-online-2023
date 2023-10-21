@@ -3,6 +3,7 @@ import BiddingList from "./BiddingList";
 import { bids } from "../utils/mockData";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { AuctionItem, ComponentItem } from "@/utils/types";
 
 export default function AuctionDetail({
   detailFields,

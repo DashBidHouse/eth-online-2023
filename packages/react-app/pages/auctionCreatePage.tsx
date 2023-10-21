@@ -2,6 +2,7 @@ import CreateAuction from "@/components/CreateAuction";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import components from "../utils/components.json";
+import { ComponentItem } from "@/utils/types";
 
 const inputFields: Array<ComponentItem> = components.auctionItems;
 

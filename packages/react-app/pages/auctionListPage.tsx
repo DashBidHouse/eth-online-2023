@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { graphClient } from "@/utils/graphClient";
 import { allAuctions } from "@/utils/queries";
 import { gql } from "@urql/core";
+import { AuctionItem } from "@/utils/types";
 
 export default function AuctionListPage() {
   const router = useRouter();

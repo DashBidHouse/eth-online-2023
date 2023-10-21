@@ -1,3 +1,4 @@
+import { AuctionItem } from "@/utils/types";
 import AuctionCard from "./AuctionCard";
 
 export default function AuctionList({

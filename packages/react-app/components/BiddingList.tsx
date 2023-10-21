@@ -1,3 +1,4 @@
+import { BiddingItem } from "@/utils/types";
 import {
   Button,
   Card,

@@ -1,3 +1,4 @@
+import { AuctionItem } from "@/utils/types";
 import {
   Card,
   CardBody,

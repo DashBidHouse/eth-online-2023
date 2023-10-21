@@ -1,3 +1,4 @@
+import { ComponentItem } from "@/utils/types";
 import { Button, Card, Input, Typography } from "@material-tailwind/react";
 import { useRouter } from "next/router";
 

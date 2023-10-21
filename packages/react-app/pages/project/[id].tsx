@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { graphClient } from "@/utils/graphClient";
 import { gql } from "@urql/core";
 import { allBidsRelatedToOneAuction, auctionById } from "@/utils/queries";
+import { AuctionItem, BiddingItem, ComponentItem } from "@/utils/types";
 
 const detailFields: Array<ComponentItem> = components.auctionItems;
 

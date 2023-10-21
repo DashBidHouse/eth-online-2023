@@ -1,10 +1,10 @@
-type ComponentItem = {
+export type ComponentItem = {
   name: string;
   key: string;
   type: string;
 };
 
-type AuctionItem = {
+export type AuctionItem = {
   address: string;
   manager: string;
   status: "open" | "closed";
@@ -16,9 +16,10 @@ type AuctionItem = {
   [key: string]: any;
 };
 
-type BiddingItem = {
+export type BiddingItem = {
   bidderAddress: string;
   offer: number;
+  auction: string;
   status: "open" | "accepted" | "declined";
   successFullDeals: number;
   ongoingDeals: number;
