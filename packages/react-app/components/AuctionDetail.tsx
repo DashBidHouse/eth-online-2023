@@ -10,6 +10,9 @@ export default function AuctionDetail({
   detailFields: Array<ComponentItem>;
   auctionItem: AuctionItem;
 }) {
+  // call smart contract function Auction.placeBid() - Make an Offer Button
+  // call contract auction.cancelAuction() - cancel Job
+
   const [deadline, setDeadline] = useState("");
   function updateCountdown(deadline: Date) {
     const now = new Date();
@@ -42,9 +45,6 @@ export default function AuctionDetail({
     // Start the countdown initially.
     updateCountdown(new Date(auctionItem.endDate));
   }, []);
-
-  // call contract auction.placebid()
-  // call contract auction.cancelAuction()
 
   return (
     <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8 flex-col">

@@ -24,7 +24,8 @@ export default function BiddingList({
   // TODO: Replace mockdata with data from subgraph or tabelland
   const TABLE_ROWS = biddingList;
 
-  // call contract auction.finalizeAuction()
+  // call contract auction.finalizeAuction() in the Accept Button
+  // call smart contract function Auction.cancelBid() - cancel Bid button
 
   return (
     <Card className="shadow-none border-top border-orange-200 h-full w-full bg-beige1">
@@ -136,6 +137,11 @@ export default function BiddingList({
                       <td className={classes}>
                         <Button color="deep-purple" className="font-normal">
                           Accept
+                          {/* TODO: Import auction status from detail Page  */}
+                          {/* TODO: As soon as a bid is accepted, all the other ones are cancled  */}
+                        </Button>
+                        <Button color="deep-purple" className="font-normal">
+                          Cancel Bid
                           {/* TODO: Import auction status from detail Page  */}
                           {/* TODO: As soon as a bid is accepted, all the other ones are cancled  */}
                         </Button>
