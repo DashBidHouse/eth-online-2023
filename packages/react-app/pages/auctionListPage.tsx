@@ -1,21 +1,37 @@
 import AuctionList from "@/components/AuctionList";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { auctions } from "../utils/mockData";
 import { Button, Typography } from "@material-tailwind/react";
 import { useRouter } from "next/router";
+import { graphClient } from "@/utils/graphClient";
+import { allAuctions } from "@/utils/queries";
+import { gql } from "@urql/core";
 
 export default function AuctionListPage() {
   const router = useRouter();
   const { user } = router.query;
   const [userAddress, setUserAddress] = useState("");
   const { address, isConnected } = useAccount();
+  const [projects, setProjects] = useState<Array<AuctionItem>>();
+
+  const fetchAuctionData = useCallback(async () => {
+    const result = await graphClient
+      .query(gql(allAuctions), { userAddress })
+      .toPromise();
+
+    console.log(result);
+
+    // result.length && setProjects(result);
+  }, [userAddress]);
 
   useEffect(() => {
     if (isConnected && address) {
       setUserAddress(address);
     }
-  }, [address, isConnected]);
+
+    fetchAuctionData();
+  }, [address, isConnected, fetchAuctionData]);
 
   return (
     <div className="flex flex-col justify-center items-center">

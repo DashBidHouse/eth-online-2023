@@ -8,10 +8,10 @@ import {
   store,
   Bytes,
   BigInt,
-  BigDecimal
+  BigDecimal,
 } from "@graphprotocol/graph-ts";
 
-export class AuctionCreate extends Entity {
+export class CreateAuction extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -19,24 +19,24 @@ export class AuctionCreate extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save AuctionCreate entity without an ID");
+    assert(id != null, "Cannot save CreateAuction entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type AuctionCreate must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type CreateAuction must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("AuctionCreate", id.toString(), this);
+      store.set("CreateAuction", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: string): AuctionCreate | null {
-    return changetype<AuctionCreate | null>(
-      store.get_in_block("AuctionCreate", id)
+  static loadInBlock(id: string): CreateAuction | null {
+    return changetype<CreateAuction | null>(
+      store.get_in_block("CreateAuction", id)
     );
   }
 
-  static load(id: string): AuctionCreate | null {
-    return changetype<AuctionCreate | null>(store.get("AuctionCreate", id));
+  static load(id: string): CreateAuction | null {
+    return changetype<CreateAuction | null>(store.get("CreateAuction", id));
   }
 
   get id(): string {
@@ -172,7 +172,7 @@ export class AuctionCreate extends Entity {
   }
 }
 
-export class AuctionFinalize extends Entity {
+export class FinalizeAuction extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -180,24 +180,24 @@ export class AuctionFinalize extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save AuctionFinalize entity without an ID");
+    assert(id != null, "Cannot save FinalizeAuction entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type AuctionFinalize must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type FinalizeAuction must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("AuctionFinalize", id.toString(), this);
+      store.set("FinalizeAuction", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: string): AuctionFinalize | null {
-    return changetype<AuctionFinalize | null>(
-      store.get_in_block("AuctionFinalize", id)
+  static loadInBlock(id: string): FinalizeAuction | null {
+    return changetype<FinalizeAuction | null>(
+      store.get_in_block("FinalizeAuction", id)
     );
   }
 
-  static load(id: string): AuctionFinalize | null {
-    return changetype<AuctionFinalize | null>(store.get("AuctionFinalize", id));
+  static load(id: string): FinalizeAuction | null {
+    return changetype<FinalizeAuction | null>(store.get("FinalizeAuction", id));
   }
 
   get id(): string {
@@ -316,7 +316,7 @@ export class AuctionFinalize extends Entity {
   }
 }
 
-export class AuctionCancel extends Entity {
+export class CancelAuction extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -324,24 +324,24 @@ export class AuctionCancel extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save AuctionCancel entity without an ID");
+    assert(id != null, "Cannot save CancelAuction entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type AuctionCancel must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type CancelAuction must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("AuctionCancel", id.toString(), this);
+      store.set("CancelAuction", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: string): AuctionCancel | null {
-    return changetype<AuctionCancel | null>(
-      store.get_in_block("AuctionCancel", id)
+  static loadInBlock(id: string): CancelAuction | null {
+    return changetype<CancelAuction | null>(
+      store.get_in_block("CancelAuction", id)
     );
   }
 
-  static load(id: string): AuctionCancel | null {
-    return changetype<AuctionCancel | null>(store.get("AuctionCancel", id));
+  static load(id: string): CancelAuction | null {
+    return changetype<CancelAuction | null>(store.get("CancelAuction", id));
   }
 
   get id(): string {
@@ -460,7 +460,7 @@ export class AuctionCancel extends Entity {
   }
 }
 
-export class BidPlace extends Entity {
+export class PlaceBid extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -468,22 +468,22 @@ export class BidPlace extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save BidPlace entity without an ID");
+    assert(id != null, "Cannot save PlaceBid entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type BidPlace must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type PlaceBid must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("BidPlace", id.toString(), this);
+      store.set("PlaceBid", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: string): BidPlace | null {
-    return changetype<BidPlace | null>(store.get_in_block("BidPlace", id));
+  static loadInBlock(id: string): PlaceBid | null {
+    return changetype<PlaceBid | null>(store.get_in_block("PlaceBid", id));
   }
 
-  static load(id: string): BidPlace | null {
-    return changetype<BidPlace | null>(store.get("BidPlace", id));
+  static load(id: string): PlaceBid | null {
+    return changetype<PlaceBid | null>(store.get("PlaceBid", id));
   }
 
   get id(): string {
@@ -547,7 +547,7 @@ export class BidPlace extends Entity {
   }
 }
 
-export class BidCancel extends Entity {
+export class CancelBid extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -555,22 +555,22 @@ export class BidCancel extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save BidCancel entity without an ID");
+    assert(id != null, "Cannot save CancelBid entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type BidCancel must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type CancelBid must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("BidCancel", id.toString(), this);
+      store.set("CancelBid", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: string): BidCancel | null {
-    return changetype<BidCancel | null>(store.get_in_block("BidCancel", id));
+  static loadInBlock(id: string): CancelBid | null {
+    return changetype<CancelBid | null>(store.get_in_block("CancelBid", id));
   }
 
-  static load(id: string): BidCancel | null {
-    return changetype<BidCancel | null>(store.get("BidCancel", id));
+  static load(id: string): CancelBid | null {
+    return changetype<CancelBid | null>(store.get("CancelBid", id));
   }
 
   get id(): string {

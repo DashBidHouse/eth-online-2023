@@ -13,6 +13,7 @@ contract AuctionFactory {
     address indexed newAuction,
     string title,
     uint256 maxOffer,
+    string description,
     uint256 submissionDeadline,
     uint256 startDate,
     uint256 endDate
@@ -25,7 +26,7 @@ contract AuctionFactory {
     address newAuction = address(new Auction(msg.sender, title, description, maxOffer, submissionDeadline, startDate, startDate + AUCTION_PERIOD));
     deployedAuctions.push(newAuction);
 
-    emit createdAuction(msg.sender, newAuction, title, maxOffer, submissionDeadline, startDate, startDate + AUCTION_PERIOD);
+    emit createdAuction(msg.sender, newAuction, title, maxOffer, description, submissionDeadline, startDate, startDate + AUCTION_PERIOD);
   }
 
   function getDeployedAuctions() public view returns (address[] memory) {

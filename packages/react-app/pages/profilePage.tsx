@@ -1,14 +1,38 @@
 import AuctionList from "@/components/AuctionList";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { auctions, bids } from "../utils/mockData";
 import BiddingList from "@/components/BiddingList";
 import { Typography } from "@material-tailwind/react";
+import { graphClient } from "@/utils/graphClient";
+import { gql } from "@urql/core";
+import {
+  allAuctions,
+  allAuctionsFilteredByAnalyst,
+  allBidsRelatedToOneBidder,
+} from "@/utils/queries";
 
 export default function ProfilePage() {
   const [userAddress, setUserAddress] = useState("");
   const { address, isConnected } = useAccount();
 
+  const [projects, setProjects] = useState<Array<AuctionItem>>();
+  const [biddings, setBiddings] = useState<Array<BiddingItem>>();
+
+  const fetchAuctionData = useCallback(async () => {
+    const auctionResult = await graphClient
+      .query(gql(allAuctionsFilteredByAnalyst), { userAddress })
+      .toPromise();
+
+    console.log(auctionResult);
+    // auctionResult && setProject(auctionResult);
+
+    const biddingResult = await graphClient
+      .query(gql(allBidsRelatedToOneBidder), { userAddress })
+      .toPromise();
+
+    // biddingResult.length && setBiddings(biddingResult);
+  }, [userAddress]);
   useEffect(() => {
     if (isConnected && address) {
       setUserAddress(address);
