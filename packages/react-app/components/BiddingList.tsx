@@ -33,7 +33,8 @@ export default function BiddingList({
 
   const [auctionStatus, setAuctionStatus] = useState("Opened");
 
-  // call contract auction.finalizeAuction()
+  // call contract auction.finalizeAuction() in the Accept Button
+  // call smart contract function Auction.cancelBid() - cancel Bid button
 
   const acceptOffer = async (bidder: string, offer: number) => {
     biddingAccepted({ bidder, offer });
