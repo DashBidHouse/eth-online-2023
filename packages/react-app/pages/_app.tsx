@@ -9,7 +9,7 @@ import { publicProvider } from "wagmi/providers/public";
 import Layout from "../components/Layout";
 import "../styles/globals.css";
 import { optimismGoerli } from "viem/chains";
-import { NETWORKS } from "../utils/constants";
+import { NETWORKS } from "../utils/networks";
 
 const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID as string; // get one at https://cloud.walletconnect.com/app
 
