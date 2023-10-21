@@ -1,7 +1,43 @@
-export const bids: BiddingItem[] = [
+import { AuctionItem, BiddingItem } from "./types";
+
+export const bidsOpen: BiddingItem[] = [
   {
     bidderAddress: "0xajdnl",
     offer: 100,
+    status: "open",
+    auction: "0xwert",
+    description: "Proposal Bid 3",
+    successFullDeals: 2,
+    ongoingDeals: 1,
+    canceledDeals: 3,
+  },
+  {
+    bidderAddress: "0xajdnm",
+    offer: 200,
+    auction: "0xwert",
+    description: "Proposal Bid 2",
+    status: "open",
+    successFullDeals: 2,
+    ongoingDeals: 1,
+    canceledDeals: 3,
+  },
+  {
+    bidderAddress: "0xajdnn",
+    offer: 300,
+    auction: "0xwert",
+    description: "Proposal Bid 1",
+    status: "open",
+    successFullDeals: 2,
+    ongoingDeals: 1,
+    canceledDeals: 3,
+  },
+];
+export const bidsClosed: BiddingItem[] = [
+  {
+    bidderAddress: "0xajdnl",
+    offer: 100,
+    auction: "0xwert",
+    description: "Proposal Bid 3",
     status: "accepted",
     successFullDeals: 2,
     ongoingDeals: 1,
@@ -10,6 +46,8 @@ export const bids: BiddingItem[] = [
   {
     bidderAddress: "0xajdnm",
     offer: 200,
+    auction: "0xwert",
+    description: "Proposal Bid 2",
     status: "declined",
     successFullDeals: 2,
     ongoingDeals: 1,
@@ -18,6 +56,8 @@ export const bids: BiddingItem[] = [
   {
     bidderAddress: "0xajdnn",
     offer: 200,
+    auction: "0xwert",
+    description: "Proposal Bid 1",
     status: "declined",
     successFullDeals: 2,
     ongoingDeals: 1,

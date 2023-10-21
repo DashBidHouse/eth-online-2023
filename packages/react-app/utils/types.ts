@@ -20,6 +20,7 @@ export type BiddingItem = {
   bidderAddress: string;
   offer: number;
   auction: string;
+  description: string;
   status: "open" | "accepted" | "declined";
   successFullDeals: number;
   ongoingDeals: number;

@@ -1,7 +1,7 @@
 import AuctionList from "@/components/AuctionList";
 import { useCallback, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import { auctions, bids } from "../utils/mockData";
+import { auctions, bidsOpen } from "../utils/mockData";
 import BiddingList from "@/components/BiddingList";
 import { Typography } from "@material-tailwind/react";
 import { graphClient } from "@/utils/graphClient";
@@ -11,14 +11,19 @@ import {
   allBidsRelatedToOneBidder,
 } from "@/utils/queries";
 import { AuctionItem, BiddingItem } from "@/utils/types";
+import { useRouter } from "next/router";
 
 export default function ProfilePage() {
   const [userAddress, setUserAddress] = useState("");
   const { address, isConnected } = useAccount();
 
+  const router = useRouter();
+  const { user } = router.query;
+
   const [projects, setProjects] = useState<Array<AuctionItem>>();
   const [biddings, setBiddings] = useState<Array<BiddingItem>>();
 
+  const dontDoAnything = () => {};
   const fetchAuctionData = useCallback(async () => {
     const auctionResult = await graphClient
       .query(allAuctionsFilteredByAnalyst, { userAddress })
@@ -44,14 +49,22 @@ export default function ProfilePage() {
       <div className="">
         <div className="">
           <Typography>
-            {/* TODO: add condition for user */}
-            {"Projects you’re working on" || "Projects you’ve listed"}
+            {user === "client"
+              ? "Projects you’ve listed"
+              : "Projects you’re working on"}
           </Typography>
           <AuctionList listEntries={auctions}></AuctionList>
         </div>
-        <div className="flex items-center gap-4 mt-20">
-          {bids?.length > 0 && <BiddingList biddingList={bids}></BiddingList>}
-        </div>{" "}
+        {user === "client" || (
+          <div className="flex items-center gap-4 mt-20">
+            {bidsOpen?.length > 0 && (
+              <BiddingList
+                biddingAccepted={dontDoAnything}
+                biddingList={bidsOpen}
+              ></BiddingList>
+            )}
+          </div>
+        )}
       </div>
       <div>{/* <ProfilePage></ProfilePage> */}</div>
     </div>

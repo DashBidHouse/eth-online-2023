@@ -1,6 +1,6 @@
 import { Button, Card, Input, Typography } from "@material-tailwind/react";
 import BiddingList from "./BiddingList";
-import { bids } from "../utils/mockData";
+import { bidsClosed, bidsOpen } from "../utils/mockData";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { AuctionItem, ComponentItem } from "@/utils/types";
@@ -17,7 +17,7 @@ export default function AuctionDetail({
 
   // countdown until the auction ends
   const [deadline, setDeadline] = useState("");
-  const [status, setStatus] = useState("Opened");
+  const [status, setStatus] = useState("");
 
   const makeOffer = async (status: string) => {
     setStatus(status);
@@ -59,6 +59,7 @@ export default function AuctionDetail({
   }
 
   useEffect(() => {
+    setStatus("Opened");
     // Start the countdown initially.
     updateCountdown(new Date(auctionItem.endDate));
   }, []);
@@ -89,65 +90,22 @@ export default function AuctionDetail({
             </div>
           </div>
         </Card>
-        {user === "client" ? (
-          <div className="flex flex-col">
-            <Button
-              onClick={() => makeOffer("Canceled")}
-              className="m-3"
-              color="orange"
-              ripple={true}
-            >
-              Cancel Project
-            </Button>{" "}
-            <Typography color="gray" variant="h4" className="ml-3">
-              Deadline
-            </Typography>
-            <Typography variant="h3" id="deadline" className="ml-3">
-              {deadline}
-            </Typography>
-          </div>
-        ) : (
-          <div className="flex flex-col">
-            {status === "Opened" ? (
+        {status === "Canceled" ? (
+          <Typography color="red" variant="h4" className="ml-3 mt-4">
+            Canceled
+          </Typography>
+        ) : status === "Opened" ? (
+          user === "client" ? (
+            <div className="flex flex-col">
               <div>
-                <Button className="m-3" color="deep-purple" ripple={true}>
-                  Make an Offer
-                </Button>
-                <div className="m-4">
-                  <Input
-                    crossOrigin="true"
-                    variant="standard"
-                    label="Offer"
-                    type="number"
-                    size="md"
-                  />
-                  <div className="m-4"></div>
-
-                  <Input
-                    crossOrigin="true"
-                    variant="standard"
-                    label="Description of your proposal"
-                    type="string"
-                    size="lg"
-                  />
-                </div>
-              </div>
-            ) : status === "Closed" ? (
-              <div>
-                <Button className="m-3" color="orange" ripple={true}>
-                  Report
+                <Button
+                  onClick={() => makeOffer("Canceled")}
+                  className="m-3"
+                  color="orange"
+                  ripple={true}
+                >
+                  Cancel Project
                 </Button>{" "}
-                <Button className="m-3" color="deep-purple" ripple={true}>
-                  Submit Work
-                </Button>{" "}
-              </div>
-            ) : (
-              <Typography color="red" variant="h4" className="ml-3 mt-4">
-                Canceled
-              </Typography>
-            )}
-            {status === "Canceled" || (
-              <div>
                 <Typography color="gray" variant="h4" className="ml-3 mt-4">
                   Deadline
                 </Typography>
@@ -155,15 +113,60 @@ export default function AuctionDetail({
                   {deadline}
                 </Typography>
               </div>
-            )}
-          </div>
+            </div>
+          ) : (
+            user === "analyst" && (
+              <div className="flex flex-col">
+                <div>
+                  <Button className="m-3" color="deep-purple" ripple={true}>
+                    Make an Offer
+                  </Button>
+                  <div className="m-4">
+                    <Input
+                      crossOrigin="true"
+                      variant="standard"
+                      label="Offer"
+                      type="number"
+                      size="md"
+                    />
+                    <div className="m-4"></div>
+
+                    <Input
+                      crossOrigin="true"
+                      variant="standard"
+                      label="Description of your proposal"
+                      type="string"
+                      size="lg"
+                    />
+                  </div>
+                </div>
+              </div>
+            )
+          )
+        ) : (
+          status === "Closed" && (
+            <div>
+              <Button className="m-3" color="orange" ripple={true}>
+                Report
+              </Button>{" "}
+              <Button className="m-3" color="deep-purple" ripple={true}>
+                Submit Work
+              </Button>{" "}
+              <Typography color="gray" variant="h4" className="ml-3 mt-4">
+                Deadline
+              </Typography>
+              <Typography variant="h3" id="deadline" className="ml-3">
+                {deadline}
+              </Typography>
+            </div>
+          )
         )}
       </div>
       <div className="flex items-center gap-4 mt-20">
-        {bids?.length > 0 && (
+        {bidsOpen?.length > 0 && (
           <BiddingList
             biddingAccepted={changeAuctionState}
-            biddingList={bids}
+            biddingList={true ? bidsOpen : bidsClosed}
           ></BiddingList>
         )}
       </div>
