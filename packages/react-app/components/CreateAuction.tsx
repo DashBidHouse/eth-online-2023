@@ -9,6 +9,7 @@ export default function CreateAuction({
 }: {
   inputFields: Array<ComponentItem>;
 }) {
+  //  smart contract address
   const auctionFactoryContractAddress =
     "0x487eD08169b76dB16f64E27A9512e776A2B5ecFd"; // OptimismGoerli
 
@@ -16,20 +17,24 @@ export default function CreateAuction({
   const signer = useEthersSigner();
   const provider = useEthersProvider();
 
-  const [tx, setTx] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [maxOffer, setMaxOffer] = useState(0);
-  const [submissionDeadline, setSubmissionDeadline] = useState(0);
-  const [startDate, setStartDate] = useState(0);
-
-  // create auctionFactoryContract
+  // create auctionFactoryContract so we can call a function
   const auctionFactoryContract = new ethers.Contract(
     auctionFactoryContractAddress,
     AuctionFactory.abi,
     signer || provider
   );
 
+  const [tx, setTx] = useState("");
+
+  // create states for function inputs - see react states
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [maxOffer, setMaxOffer] = useState(0);
+  const [submissionDeadline, setSubmissionDeadline] = useState(0);
+  const [startDate, setStartDate] = useState(0);
+
+  // a little bit overengineered here. you would normally do
+  // that directly do in the input field
   const setValue = (input: any, field: string) => {
     field === "title" && setTitle(input);
     field === "description" && setDescription(input);
@@ -38,15 +43,18 @@ export default function CreateAuction({
     field === "startDate" && setStartDate(new Date(input).getTime());
   };
 
+  // function is called when project is created - button "Create Project"
   const createAuction = async () => {
     console.log(auctionFactoryContract);
     console.log(title, description, maxOffer, submissionDeadline, startDate);
 
+    // checks if user is connected with their wallet
     if (!signer) {
       alert("Please Connect your Wallet.");
     }
 
     try {
+      // call smart contract function
       const result = await auctionFactoryContract.createAuction(
         title,
         description,
