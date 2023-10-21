@@ -17,6 +17,20 @@ export default function AuctionDetail({
 
   // countdown until the auction ends
   const [deadline, setDeadline] = useState("");
+  const [status, setStatus] = useState("Opened");
+
+  const makeOffer = async (status: string) => {
+    setStatus(status);
+    console.log(status);
+  };
+  const changeAuctionState = async (data: {
+    bidder: string;
+    offer: number;
+  }) => {
+    console.log(data);
+    setStatus("Closed");
+    console.log(status);
+  };
   function updateCountdown(deadline: Date) {
     const now = new Date();
     const timeDifference = deadline.getTime() - now.getTime();
@@ -77,7 +91,12 @@ export default function AuctionDetail({
         </Card>
         {user === "client" ? (
           <div className="flex flex-col">
-            <Button className="m-3" color="orange" ripple={true}>
+            <Button
+              onClick={() => makeOffer("Canceled")}
+              className="m-3"
+              color="orange"
+              ripple={true}
+            >
               Cancel Project
             </Button>{" "}
             <Typography color="gray" variant="h4" className="ml-3">
@@ -89,7 +108,7 @@ export default function AuctionDetail({
           </div>
         ) : (
           <div className="flex flex-col">
-            {true ? (
+            {status === "Opened" ? (
               <div>
                 <Button className="m-3" color="deep-purple" ripple={true}>
                   Make an Offer
@@ -113,7 +132,7 @@ export default function AuctionDetail({
                   />
                 </div>
               </div>
-            ) : (
+            ) : status === "Closed" ? (
               <div>
                 <Button className="m-3" color="orange" ripple={true}>
                   Report
@@ -122,18 +141,31 @@ export default function AuctionDetail({
                   Submit Work
                 </Button>{" "}
               </div>
+            ) : (
+              <Typography color="red" variant="h4" className="ml-3 mt-4">
+                Canceled
+              </Typography>
             )}
-            <Typography color="gray" variant="h4" className="ml-3 mt-4">
-              Deadline
-            </Typography>
-            <Typography variant="h3" id="deadline" className="ml-3">
-              {deadline}
-            </Typography>
+            {status === "Canceled" || (
+              <div>
+                <Typography color="gray" variant="h4" className="ml-3 mt-4">
+                  Deadline
+                </Typography>
+                <Typography variant="h3" id="deadline" className="ml-3">
+                  {deadline}
+                </Typography>
+              </div>
+            )}
           </div>
         )}
       </div>
       <div className="flex items-center gap-4 mt-20">
-        {bids?.length > 0 && <BiddingList biddingList={bids}></BiddingList>}
+        {bids?.length > 0 && (
+          <BiddingList
+            biddingAccepted={changeAuctionState}
+            biddingList={bids}
+          ></BiddingList>
+        )}
       </div>
     </div>
   );

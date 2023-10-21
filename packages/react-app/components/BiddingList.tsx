@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const TABLE_HEAD = [
   "Bidder",
@@ -20,16 +21,24 @@ const TABLE_HEAD = [
 
 export default function BiddingList({
   biddingList,
+  biddingAccepted,
 }: {
   biddingList: Array<BiddingItem>;
+  biddingAccepted: ({ bidder, offer }: { bidder: string; offer: number }) => {};
 }) {
   const router = useRouter();
   const { user } = router.query;
-
   // TODO: Replace mockdata with data from subgraph or tabelland
   const TABLE_ROWS = biddingList;
 
+  const [auctionStatus, setAuctionStatus] = useState("Opened");
+
   // call contract auction.finalizeAuction()
+
+  const acceptOffer = async (bidder: string, offer: number) => {
+    biddingAccepted({ bidder, offer });
+    setAuctionStatus("Closed");
+  };
 
   return (
     <Card className="shadow-none border-top border-orange-200 h-full w-full bg-beige1">
@@ -140,7 +149,16 @@ export default function BiddingList({
                       </td>
                       <td className={classes}>
                         {user === "client" ? (
-                          <Button color="deep-purple" className="font-normal">
+                          <Button
+                            onClick={() => acceptOffer(bidderAddress, offer)}
+                            color="deep-purple"
+                            className="font-normal"
+                            disabled={
+                              auctionStatus === "Closed" ||
+                              status === "declined" ||
+                              status === "accepted"
+                            }
+                          >
                             Accept
                             {/* TODO: Import auction status from detail Page  */}
                             {/* TODO: As soon as a bid is accepted, all the other ones are cancled  */}

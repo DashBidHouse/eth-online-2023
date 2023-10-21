@@ -6,11 +6,6 @@
       "type": "string"
     },
     {
-      "name": "Status",
-      "key": "status",
-      "type": "string"
-    },
-    {
       "name": "Max Budget",
       "key": "maxOffer",
       "type": "number"
