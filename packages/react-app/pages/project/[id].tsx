@@ -1,13 +1,16 @@
 import AuctionDetail from "@/components/AuctionDetail";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import components from "../utils/components.json";
-import { auctions } from "../utils/mockData";
+import components from "../../utils/components.json";
+import { auctions } from "../../utils/mockData";
 import { Typography } from "@material-tailwind/react";
+import { useRouter } from "next/router";
 
 const detailFields: Array<ComponentItem> = components.auctionItems;
 
 export default function AuctionDetailPage() {
+  const router = useRouter();
+  const { user } = router.query;
   const [userAddress, setUserAddress] = useState("");
   const { address, isConnected } = useAccount();
 
@@ -29,9 +32,6 @@ export default function AuctionDetailPage() {
           auctionItem={auctions[0]}
         ></AuctionDetail>
       </div>
-      {isConnected && (
-        <div className="h2 text-center">Your address: {userAddress}</div>
-      )}
     </div>
   );
 }

@@ -24,9 +24,6 @@ export default function Home() {
           <CreateAuction inputFields={inputFields} />
         </div>
       )}
-      {isConnected && (
-        <div className="h2 text-center">Your address: {userAddress}</div>
-      )}
     </div>
   );
 }

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { useAccount } from "wagmi";
 import Image from "next/image";
 import { Typography, Button } from "@material-tailwind/react";
 
 export default function Home() {
+  const router = useRouter();
   const [userAddress, setUserAddress] = useState("");
   const { address, isConnected } = useAccount();
 
@@ -24,10 +26,29 @@ export default function Home() {
           Join as a Data Freelancer or Client
         </Typography>
         <div className="flex flex-row gap-10">
-          <Button className="m5" color="deep-purple">
+          <Button
+            onClick={() => {
+              router.push({
+                pathname: "/auctionListPage",
+                query: { user: "client" }, // Pass the property as a query parameter
+              });
+            }}
+            className="m5"
+            color="deep-purple"
+          >
             Company
           </Button>
-          <Button className="m5">Data Analyst</Button>
+          <Button
+            onClick={() => {
+              router.push({
+                pathname: "/auctionListPage",
+                query: { user: "analyst" }, // Pass the property as a query parameter
+              });
+            }}
+            className="m5"
+          >
+            Data Analyst
+          </Button>
         </div>
       </div>
       <div>
