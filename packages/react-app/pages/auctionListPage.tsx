@@ -6,7 +6,6 @@ import { Button, Typography } from "@material-tailwind/react";
 import { useRouter } from "next/router";
 import { graphClient } from "@/utils/graphClient";
 import { allAuctions } from "@/utils/queries";
-import { gql } from "@urql/core";
 import { AuctionItem } from "@/utils/types";
 
 export default function AuctionListPage() {
@@ -18,7 +17,7 @@ export default function AuctionListPage() {
 
   const fetchAuctionData = useCallback(async () => {
     const result = await graphClient
-      .query(gql(allAuctions), { userAddress })
+      .query(allAuctions, { userAddress })
       .toPromise();
 
     console.log(result);

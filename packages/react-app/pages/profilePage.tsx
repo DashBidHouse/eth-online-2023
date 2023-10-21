@@ -5,12 +5,12 @@ import { auctions, bids } from "../utils/mockData";
 import BiddingList from "@/components/BiddingList";
 import { Typography } from "@material-tailwind/react";
 import { graphClient } from "@/utils/graphClient";
-import { gql } from "@urql/core";
 import {
   allAuctions,
   allAuctionsFilteredByAnalyst,
   allBidsRelatedToOneBidder,
 } from "@/utils/queries";
+import { AuctionItem, BiddingItem } from "@/utils/types";
 
 export default function ProfilePage() {
   const [userAddress, setUserAddress] = useState("");
@@ -21,14 +21,14 @@ export default function ProfilePage() {
 
   const fetchAuctionData = useCallback(async () => {
     const auctionResult = await graphClient
-      .query(gql(allAuctionsFilteredByAnalyst), { userAddress })
+      .query(allAuctionsFilteredByAnalyst, { userAddress })
       .toPromise();
 
     console.log(auctionResult);
     // auctionResult && setProject(auctionResult);
 
     const biddingResult = await graphClient
-      .query(gql(allBidsRelatedToOneBidder), { userAddress })
+      .query(allBidsRelatedToOneBidder, { userAddress })
       .toPromise();
 
     // biddingResult.length && setBiddings(biddingResult);
