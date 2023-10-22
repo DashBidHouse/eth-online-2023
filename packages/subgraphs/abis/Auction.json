@@ -339,6 +339,11 @@
     "name": "biddingByBidder",
     "outputs": [
       {
+        "internalType": "address",
+        "name": "bidder",
+        "type": "address"
+      },
+      {
         "internalType": "uint256",
         "name": "offerAmount",
         "type": "uint256"
