@@ -354,28 +354,28 @@ export class CancelBidCall__Outputs {
   }
 }
 
-export class CanelAuctionCall extends ethereum.Call {
-  get inputs(): CanelAuctionCall__Inputs {
-    return new CanelAuctionCall__Inputs(this);
+export class CancelAuctionCall extends ethereum.Call {
+  get inputs(): CancelAuctionCall__Inputs {
+    return new CancelAuctionCall__Inputs(this);
   }
 
-  get outputs(): CanelAuctionCall__Outputs {
-    return new CanelAuctionCall__Outputs(this);
+  get outputs(): CancelAuctionCall__Outputs {
+    return new CancelAuctionCall__Outputs(this);
   }
 }
 
-export class CanelAuctionCall__Inputs {
-  _call: CanelAuctionCall;
+export class CancelAuctionCall__Inputs {
+  _call: CancelAuctionCall;
 
-  constructor(call: CanelAuctionCall) {
+  constructor(call: CancelAuctionCall) {
     this._call = call;
   }
 }
 
-export class CanelAuctionCall__Outputs {
-  _call: CanelAuctionCall;
+export class CancelAuctionCall__Outputs {
+  _call: CancelAuctionCall;
 
-  constructor(call: CanelAuctionCall) {
+  constructor(call: CancelAuctionCall) {
     this._call = call;
   }
 }
