@@ -2,6 +2,7 @@ import CreateAuction from "@/components/CreateAuction";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import components from "../utils/components.json";
+import { ComponentItem } from "@/utils/types";
 
 const inputFields: Array<ComponentItem> = components.auctionItems;
 
@@ -23,9 +24,6 @@ export default function Home() {
         <div className="h1">
           <CreateAuction inputFields={inputFields} />
         </div>
-      )}
-      {isConnected && (
-        <div className="h2 text-center">Your address: {userAddress}</div>
       )}
     </div>
   );

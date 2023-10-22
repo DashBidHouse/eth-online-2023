@@ -1,3 +1,4 @@
+import { AuctionItem } from "@/utils/types";
 import {
   Card,
   CardBody,
@@ -5,8 +6,21 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function AuctionCard(item: AuctionItem) {
+  const router = useRouter();
+  const { user } = router.query;
+  const [projectId, setAuctionId] = useState("12");
+
+  const navigateToProject = () => {
+    router.push({
+      pathname: `/project/${projectId}`,
+      query: { user }, // Pass the property as a query parameter
+    });
+  };
+
   return (
     <Card className="mt-6 w-96">
       <CardBody>
@@ -48,7 +62,11 @@ export default function AuctionCard(item: AuctionItem) {
         {/* <Typography>Description: {item.description}</Typography> */}
       </CardBody>
       <CardFooter className="pt-0 flex flex-row justify-center">
-        <Button color="deep-purple">Make Offer</Button>
+        {user === "client" || (
+          <Button onClick={navigateToProject} color="deep-purple">
+            Make Offer
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );

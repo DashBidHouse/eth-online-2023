@@ -25,7 +25,7 @@ async function main() {
     let startDate = Math.floor(Date.now() / 1000) + 100;
     let endDate = startDate + 3600 * 48;
 
-    await AuctionFactory_Deployed.createAuction(title, description, maxOffer, submissionDeadline, startDate);
+    await AuctionFactory_Deployed.createAuction(title, maxOffer, description, submissionDeadline);
 
     await sleep(20);
     await verify(AuctionFactory_Deployed.address, []);

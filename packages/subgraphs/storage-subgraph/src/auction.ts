@@ -5,45 +5,52 @@ import {
   canceledBid,
 } from "../generated/Auction/Auction";
 import {
-  AuctionFinalize,
-  AuctionCancel,
-  BidPlace,
-  BidCancel,
+  FinalizeAuction,
+  CancelAuction,
+  PlaceBid,
+  CancelBid,
 } from "../generated/schema";
 
-export function handleAuctionFinalized(event: finalizedAuction): void {
-  let auction = new AuctionFinalize(event.params.manager.toHexString());
+export function handleFinalizedAuction(event: finalizedAuction): void {
+  let auction = new FinalizeAuction(event.params.manager.toHexString());
   auction.manager = event.params.manager;
   auction.title = event.params.title;
   auction.maxOffer = event.params.maxOffer;
-  auction.endDate = event.params.endDate;
-  auction.bidder = event.params.bidder;
-  auction.winningBid = event.params.winningBid;
-  auction.save();
-}
-
-export function handleAuctionCanceled(event: canceledAuction): void {
-  let auction = new AuctionCancel(event.params.manager.toHexString());
-  auction.manager = event.params.manager;
-  auction.title = event.params.title;
-  auction.maxOffer = event.params.maxOffer;
-  auction.endDate = event.params.endDate;
-  auction.bidder = event.params.bidder;
-  auction.winningBid = event.params.winningBid;
-  auction.save();
-}
-
-export function handleBidPlaced(event: placedBid): void {
-  let auction = new BidPlace(event.params.bidder.toHexString());
-  auction.offer = event.params.offer;
   auction.description = event.params.description;
+  auction.endDate = event.params.endDate;
   auction.bidder = event.params.bidder;
+  auction.winningBid = event.params.winningBid;
+  auction.status = event.params.status;
   auction.save();
 }
 
-export function handleBidCanceled(event: canceledBid): void {
-  let auction = new BidCancel(event.params.bidder.toHexString());
-  auction.offer = event.params.offer;
-  auction.bidder = event.params.bidder;
+export function handleCanceledAuction(event: canceledAuction): void {
+  let auction = new CancelAuction(event.params.manager.toHexString());
+  auction.manager = event.params.manager;
+  auction.title = event.params.title;
+  auction.maxOffer = event.params.maxOffer;
+  auction.description = event.params.description;
+  auction.endDate = event.params.endDate;
+  auction.status = event.params.status;
   auction.save();
+}
+
+export function handlePlacedBid(event: placedBid): void {
+  let bid = new PlaceBid(event.params.bidder.toHexString());
+  bid.offer = event.params.offer;
+  bid.auction = event.params.auction;
+  bid.description = event.params.description;
+  bid.bidder = event.params.bidder;
+  bid.status = event.params.status;
+  bid.save();
+}
+
+export function handleCanceledBid(event: canceledBid): void {
+  let bid = new CancelBid(event.params.bidder.toHexString());
+  bid.offer = event.params.offer;
+  bid.auction = event.params.auction;
+  bid.description = event.params.description;
+  bid.bidder = event.params.bidder;
+  bid.status = event.params.status;
+  bid.save();
 }

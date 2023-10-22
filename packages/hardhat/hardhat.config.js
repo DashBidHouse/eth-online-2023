@@ -3,8 +3,6 @@ require('hardhat-deploy');
 const { task } = require('hardhat/config');
 require('hardhat-celo');
 
-const defaultNetwork = 'alfajores';
-
 // This is the mnemonic used by celo-devchain
 const DEVCHAIN_MNEMONIC = 'concert load couple harbor equip island argue ramp clarify fence smart topic';
 
@@ -15,14 +13,8 @@ const DEVCHAIN_MNEMONIC = 'concert load couple harbor equip island argue ramp cl
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  defaultNetwork,
+  defaultNetwork: 'hardhat',
   networks: {
-    localhost: {
-      url: 'http://127.0.0.1:8545',
-      accounts: {
-        mnemonic: DEVCHAIN_MNEMONIC,
-      },
-    },
     alfajores: {
       url: 'https://alfajores-forno.celo-testnet.org',
       accounts: [process.env.PRIVATE_KEY],
@@ -41,10 +33,21 @@ module.exports = {
     scrollSepolia: {
       url: 'https://sepolia-rpc.scroll.io/' || '',
       accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      chainId: 534351,
+    },
+    mantleTestnet: {
+      url: 'https://rpc.testnet.mantle.xyz/' || '',
+      accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      chainId: 5001,
     },
     goerli: {
       url: 'https:///eth-goerli.alchemyapi.io/v2/y6JWvczJyMCtx6wgho1QMqOrRFUoVadE',
       accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+    hardhat: {
+      forking: {
+        url: 'https://sepolia-rpc.scroll.io/',
+      },
     },
   },
   etherscan: {
@@ -53,7 +56,33 @@ module.exports = {
       alfajores: process.env.CELOSCAN_API_KEY,
       celo: process.env.CELOSCAN_API_KEY,
       goerli: 'XFAGSFB6UXE9MFTA9AHJMGHMXI8IXRVCHW',
+      optimismGoerli: 'FP31T2R7TBTXUR7SWXV8QHRCMHMGZTSKGA',
     },
+    customChains: [
+      {
+        network: 'optimismGoerli',
+        chainId: 420,
+        urls: {
+          apiURL: 'https://api-optimistic.etherscan.io/api',
+          browserURL: 'https://optimistic.etherscan.io/',
+        },
+      },
+      {
+        network: 'scrollSepolia',
+        chainId: 534351,
+        urls: {
+          browserURL: 'https://sepolia-blockscout.scroll.io',
+        },
+      },
+      {
+        network: 'mantleTestnet',
+        chainId: 5001,
+        urls: {
+          apiURL: 'https://explorer.mantle.xyz/api',
+          browserURL: 'https://explorer.mantle.xyz/',
+        },
+      },
+    ],
   },
   solidity: {
     version: '0.8.0',

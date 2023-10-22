@@ -1,3 +1,4 @@
+import { BiddingItem } from "@/utils/types";
 import {
   Button,
   Card,
@@ -5,6 +6,8 @@ import {
   Chip,
   Typography,
 } from "@material-tailwind/react";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 const TABLE_HEAD = [
   "Bidder",
@@ -18,13 +21,25 @@ const TABLE_HEAD = [
 
 export default function BiddingList({
   biddingList,
+  biddingAccepted,
 }: {
   biddingList: Array<BiddingItem>;
+  biddingAccepted: ({ bidder, offer }: { bidder: string; offer: number }) => {};
 }) {
+  const router = useRouter();
+  const { user } = router.query;
   // TODO: Replace mockdata with data from subgraph or tabelland
   const TABLE_ROWS = biddingList;
 
-  // call contract auction.finalizeAuction()
+  const [auctionStatus, setAuctionStatus] = useState("Opened");
+
+  // call contract auction.finalizeAuction() in the Accept Button
+  // call smart contract function Auction.cancelBid() - cancel Bid button
+
+  const acceptOffer = async (bidder: string, offer: number) => {
+    biddingAccepted({ bidder, offer });
+    setAuctionStatus("Closed");
+  };
 
   return (
     <Card className="shadow-none border-top border-orange-200 h-full w-full bg-beige1">
@@ -134,11 +149,28 @@ export default function BiddingList({
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Button color="deep-purple" className="font-normal">
-                          Accept
-                          {/* TODO: Import auction status from detail Page  */}
-                          {/* TODO: As soon as a bid is accepted, all the other ones are cancled  */}
-                        </Button>
+                        {user === "client" ? (
+                          <Button
+                            onClick={() => acceptOffer(bidderAddress, offer)}
+                            color="deep-purple"
+                            className="font-normal"
+                            disabled={
+                              auctionStatus === "Closed" ||
+                              status === "declined" ||
+                              status === "accepted"
+                            }
+                          >
+                            Accept
+                            {/* TODO: Import auction status from detail Page  */}
+                            {/* TODO: As soon as a bid is accepted, all the other ones are cancled  */}
+                          </Button>
+                        ) : (
+                          <Button color="deep-purple" className="font-normal">
+                            Cancel
+                            {/* TODO: Import auction status from detail Page  */}
+                            {/* TODO: As soon as a bid is accepted, all the other ones are cancled  */}
+                          </Button>
+                        )}
                       </td>
                     </tr>
                   );
