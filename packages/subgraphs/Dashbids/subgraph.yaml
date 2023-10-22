@@ -1,0 +1,54 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: AuctionFactory
+    network: scroll-sepolia
+    source:
+      address: "0x061aDbB70d398876AeFE66ee73E8915F24404E82"
+      abi: AuctionFactory
+      startBlock: 1774666
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - createdAuction
+      abis:
+        - name: AuctionFactory
+          file: ./abis/AuctionFactory.json
+      eventHandlers:
+        - event: createdAuction(indexed address,indexed
+            address,string,uint256,uint256,uint256,uint256)
+          handler: handlecreatedAuction
+      file: ./src/auction-factory.ts
+  - kind: ethereum
+    name: Auction
+    network: scroll-sepolia
+    source:
+      address: "0xBDfCFE60766B857C13B5cB51cC2186E31A0Fa615"
+      abi: Auction
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - canceledAuction
+        - canceledBid
+        - finalizedAuction
+        - placedBid
+      abis:
+        - name: Auction
+          file: ./abis/Auction.json
+      eventHandlers:
+        - event: canceledAuction(indexed address,string,uint256,uint256,indexed address,uint256)
+          handler: handlecanceledAuction
+        - event: canceledBid(uint256,address,indexed address)
+          handler: handlecanceledBid
+        - event: finalizedAuction(indexed address,string,uint256,uint256,indexed address,uint256)
+          handler: handlefinalizedAuction
+        - event: placedBid(uint256,string,address,indexed address)
+          handler: handleplacedBid
+      file: ./src/auction.ts

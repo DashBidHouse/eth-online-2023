@@ -1,0 +1,11 @@
+{
+  "scroll-sepolia": {
+    "AuctionFactory": {
+      "address": "0x061aDbB70d398876AeFE66ee73E8915F24404E82",
+      "startBlock": 1774666
+    },
+    "Auction": {
+      "address": "0xBDfCFE60766B857C13B5cB51cC2186E31A0Fa615"
+    }
+  }
+}

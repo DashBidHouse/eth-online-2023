@@ -21,7 +21,7 @@ export default function AuctionDetail({
   const { user } = router.query;
 
   //  smart contract address
-  const auctionContractAddress = "0x51250a9E990fbF72Df64e707e2b4e815E4eC3aF5"; // MantleTestnet
+  const auctionContractAddress = "0xBDfCFE60766B857C13B5cB51cC2186E31A0Fa615"; // MantleTestnet
   // "0x692a38F2578ac99D17215B1D5305542eDc721742"; // Scroll Sepolia
 
   // get signer & provider
