@@ -5,6 +5,7 @@ import AuctionFactory from "../abis/AuctionFactory.json";
 import { ethers } from "ethers";
 import { useEthersProvider, useEthersSigner } from "@/utils/ethers";
 import { useState } from "react";
+import { log } from "console";
 
 export default function CreateAuction({
   inputFields,
@@ -16,7 +17,8 @@ export default function CreateAuction({
 
   //  smart contract address
   const auctionFactoryContractAddress =
-    "0x487eD08169b76dB16f64E27A9512e776A2B5ecFd"; // OptimismGoerli
+    // "0x487eD08169b76dB16f64E27A9512e776A2B5ecFd"; // OptimismGoerli
+    "0x692a38F2578ac99D17215B1D5305542eDc721742"; // Scroll Sepolia
 
   // get signer & provider
   const signer = useEthersSigner();
@@ -62,13 +64,14 @@ export default function CreateAuction({
       // call smart contract function
       const result = await auctionFactoryContract.createAuction(
         title,
-        description,
         maxOffer,
-        submissionDeadline,
-        startDate
+        description,
+        submissionDeadline
       );
 
       setTx(result.hash);
+      const tx = await result.wait();
+      console.log(tx);
     } catch (error) {
       // Handle the error
       console.error("An error occurred:", error);
