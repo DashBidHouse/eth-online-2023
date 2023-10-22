@@ -14,7 +14,8 @@ DashBid's reverse auction mechanism offers Data Clients cost-efficient solutions
 To run the application locally, first clone it
 
 ```
-git clone git@github.com:DashBidHouse/eth-online-2023.git  //if doesn't work try this: git clone https://github.com/DashBidHouse/eth-online-2023.git
+git clone git@github.com:DashBidHouse/eth-online-2023.git  
+//if doesn't work try this: git clone https://github.com/DashBidHouse/eth-online-2023.git
 
 ```
 
