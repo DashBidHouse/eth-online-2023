@@ -6,7 +6,7 @@ import './Auction.sol'; // Import the Auction contract
 contract AuctionFactory {
   event createdAuction(
     address indexed manager,
-    address newAuction,
+    address indexed newAuction,
     string title,
     uint256 maxOffer,
     string description,

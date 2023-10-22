@@ -18,7 +18,8 @@ export default function CreateAuction({
   const auctionFactoryContractAddress =
     // "0x487eD08169b76dB16f64E27A9512e776A2B5ecFd"; // OptimismGoerli
     // "0x487eD08169b76dB16f64E27A9512e776A2B5ecFd"; // MantleTestnet
-    "0x692a38F2578ac99D17215B1D5305542eDc721742"; // Scroll Sepolia
+    // "0x692a38F2578ac99D17215B1D5305542eDc721742"; // Scroll Sepolia - newer deployment
+    "0xd44f1ac64bd20870571B688BD575FD5eD4531107"; // Scroll Sepolia - deplyoment for subgraph
 
   // get signer & provider
   const signer = useEthersSigner();

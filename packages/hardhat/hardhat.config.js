@@ -71,7 +71,8 @@ module.exports = {
         network: 'scrollSepolia',
         chainId: 534351,
         urls: {
-          browserURL: 'https://sepolia-blockscout.scroll.io',
+          apiURL: 'https://sepolia.scrollscan.com/api',
+          browserURL: 'https://sepolia.scrollscan.com/',
         },
       },
       {

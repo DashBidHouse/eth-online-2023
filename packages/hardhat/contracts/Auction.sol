@@ -51,16 +51,16 @@ contract Auction {
   event finalizedAuction(
     address indexed manager,
     string title,
-    string description,
     uint256 maxOffer,
+    string description,
     uint256 endDate,
-    address indexed bidder,
+    address indexed winningBidder,
     uint256 winningBid,
     AuctionStatus status
   );
-  event canceledAuction(address indexed manager, string title, string description, uint256 maxOffer, uint256 endDate, AuctionStatus status);
-  event placedBid(uint256 offer, string description, address indexed auction, address indexed bidder, BidStatus status);
-  event canceledBid(uint256 offer, string description, address indexed auction, address indexed bidder, BidStatus status);
+  event canceledAuction(address indexed manager, string title, uint256 maxOffer, string description, uint256 endDate, AuctionStatus status);
+  event placedBid(uint256 offer, address indexed auction, string description, address indexed bidder, BidStatus status);
+  event canceledBid(uint256 offer, address indexed auction, string description, address indexed bidder, BidStatus status);
 
   constructor(
     address _manager,
@@ -99,8 +99,8 @@ contract Auction {
     emit finalizedAuction(
       auctionInfo.manager,
       auctionInfo.title,
-      auctionInfo.description,
       auctionInfo.maxOffer,
+      auctionInfo.description,
       auctionInfo.endDate,
       winningBidder,
       winningBid,
@@ -113,7 +113,7 @@ contract Auction {
 
     auctionStatus = AuctionStatus.Canceled;
 
-    emit canceledAuction(auctionInfo.manager, auctionInfo.title, auctionInfo.description, auctionInfo.maxOffer, auctionInfo.endDate, auctionStatus);
+    emit canceledAuction(auctionInfo.manager, auctionInfo.title, auctionInfo.maxOffer, auctionInfo.description, auctionInfo.endDate, auctionStatus);
   }
 
   function placeBid(uint256 _offer, string memory description) public {
@@ -127,7 +127,7 @@ contract Auction {
     maxBidOffer = _offer;
     bidders.add(msg.sender);
 
-    emit placedBid(_offer, description, address(this), msg.sender, BidStatus.Placed);
+    emit placedBid(_offer, address(this), description, msg.sender, BidStatus.Placed);
   }
 
   function cancelBid() public {
@@ -136,6 +136,6 @@ contract Auction {
     biddingByBidder[msg.sender].status = BidStatus.Canceled;
     BidInfo storage bidInfo_ = biddingByBidder[msg.sender];
 
-    emit canceledBid(bidInfo_.offerAmount, bidInfo_.description, address(this), msg.sender, BidStatus.Canceled);
+    emit canceledBid(bidInfo_.offerAmount, address(this), bidInfo_.description, msg.sender, BidStatus.Canceled);
   }
 }
