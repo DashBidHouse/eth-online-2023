@@ -1,7 +1,7 @@
 import { ComponentItem } from "@/utils/types";
 import { Button, Card, Input, Typography } from "@material-tailwind/react";
 import { useRouter } from "next/router";
-import AuctionFactory from "../../hardhat/artifacts/contracts/AuctionFactory.sol/AuctionFactory.json";
+import AuctionFactory from "../../hardhat/contracts/AuctionFactory.sol/AuctionFactory.json"; //"../../hardhat/artifacts/contracts/AuctionFactory.sol/AuctionFactory.json";
 import { ethers } from "ethers";
 import { useEthersProvider, useEthersSigner } from "@/utils/ethers";
 import { useState } from "react";
