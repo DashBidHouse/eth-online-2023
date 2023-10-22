@@ -1,7 +1,7 @@
 import { Button, Card, Input, Typography } from "@material-tailwind/react";
 import BiddingList from "./BiddingList";
 import { bidsClosed, bidsOpen } from "../utils/mockData";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { AuctionItem, ComponentItem } from "@/utils/types";
 import SismoConnect from "./SismoConnect";
@@ -101,18 +101,23 @@ export default function AuctionDetail({
     bidder: string;
     offer: number;
   }) => {
-    user
-      ? setUserState(typeof user === "string" ? user : user[0])
-      : setUserState("analyst");
+    try {
+      user
+        ? setUserState(typeof user === "string" ? user : user[0])
+        : setUserState("analyst");
 
-    console.log(data);
-    // setStatus("Closed");
-    console.log(status);
+      console.log(data);
+      // setStatus("Closed");
+      console.log(status);
+    } catch (error: any) {
+      // Handle the error
+      console.error("An error occurred:", error);
+    }
   };
 
   // countdown until the auction ends
 
-  function updateCountdown(deadline: Date) {
+  const updateCountdown = useCallback((deadline: Date) => {
     const now = new Date();
     const timeDifference = deadline.getTime() - now.getTime();
 
@@ -137,7 +142,7 @@ export default function AuctionDetail({
         updateCountdown(deadline);
       }, 1000);
     }
-  }
+  }, []);
 
   useEffect(() => {
     setStatus("Opened");

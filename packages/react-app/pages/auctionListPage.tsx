@@ -17,11 +17,16 @@ export default function AuctionListPage() {
   const [projects, setProjects] = useState<Array<AuctionItem>>();
 
   const fetchAuctionData = useCallback(async () => {
-    const result = await graphClient
-      .query(allAuctions, { userAddress })
-      .toPromise();
+    try {
+      const result = await graphClient
+        .query(allAuctions, { userAddress })
+        .toPromise();
 
-    console.log(result);
+      console.log(result);
+    } catch (error: any) {
+      // Handle the error
+      console.error("An error occurred:", error);
+    }
 
     // result.length && setProjects(result);
   }, [userAddress]);

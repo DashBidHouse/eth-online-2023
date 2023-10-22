@@ -20,22 +20,27 @@ export default function AuctionDetailPage() {
   const [biddings, setBiddings] = useState<Array<BiddingItem>>();
 
   const fetchAuctionData = useCallback(async () => {
-    const auctionResult = await graphClient
-      .query(auctionById, { auctionId })
-      .toPromise();
+    try {
+      const auctionResult = await graphClient
+        .query(auctionById, { auctionId })
+        .toPromise();
 
-    console.log(auctionResult);
-    // auctionResult && setProject(auctionResult);
+      console.log(auctionResult);
+      // auctionResult && setProject(auctionResult);
 
-    const biddingResult = await graphClient
-      .query(allBidsRelatedToOneAuction, { auctionId })
-      .toPromise();
+      const biddingResult = await graphClient
+        .query(allBidsRelatedToOneAuction, { auctionId })
+        .toPromise();
 
-    // biddingResult.length && setBiddings(biddingResult);
+      // biddingResult.length && setBiddings(biddingResult);
 
-    console.log(auctionResult);
+      console.log(auctionResult);
 
-    // result.length && setProjects(result);
+      // result.length && setProjects(result);
+    } catch (error: any) {
+      // Handle the error
+      console.error("An error occurred:", error);
+    }
   }, [auctionId]);
 
   useEffect(() => {
