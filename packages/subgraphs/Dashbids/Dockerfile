@@ -10,13 +10,12 @@ RUN apt update \
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - \
     && sudo apt-get install -y nodejs
 
-RUN curl -OL https://github.com/LimeChain/matchstick/releases/download/<MATCHSTICK_VERSION>/binary-linux-22 \
+RUN curl -OL https://github.com/LimeChain/matchstick/releases/download/v0.6.0/binary-linux-22 \
     && chmod a+x binary-linux-22
 
 RUN mkdir matchstick
 WORKDIR /matchstick
 
-# Commenting out for now as it seems there's no need to copy when using bind mount
-# COPY ./ .
+COPY ./ .
 
 CMD ../binary-linux-22 ${ARGS}
