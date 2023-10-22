@@ -1,5 +1,6 @@
 import { AuctionItem } from "@/utils/types";
 import AuctionCard from "./AuctionCard";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 export default function AuctionList({
   listEntries,
@@ -12,7 +13,12 @@ export default function AuctionList({
     <div className="flex-col mx-auto max-w-7xl py-6 px-4 sm:px-6 md:flex  md:justify-between lg:px-8">
       <div className="flex flex-row gap-6">
         {listEntries.map((item) => (
-          <AuctionCard {...item} key={item.address}></AuctionCard>
+          <ErrorBoundary
+            key={item.address}
+            fallback={<h1>Error Encountered</h1>}
+          >
+            <AuctionCard {...item}></AuctionCard>
+          </ErrorBoundary>
         ))}
       </div>
     </div>

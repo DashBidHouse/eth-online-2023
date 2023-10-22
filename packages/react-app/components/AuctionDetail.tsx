@@ -8,6 +8,7 @@ import SismoConnect from "./SismoConnect";
 import Auction from "../abis/Auction.json";
 import { useEthersProvider, useEthersSigner } from "@/utils/ethers";
 import { ethers } from "ethers";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 export default function AuctionDetail({
   detailFields,
@@ -142,7 +143,7 @@ export default function AuctionDetail({
     setStatus("Opened");
     // Start the countdown initially.
     updateCountdown(new Date(auctionItem.endDate));
-  }, []);
+  }, [updateCountdown, auctionItem.endDate]);
 
   return (
     <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8 flex-col">
@@ -250,10 +251,12 @@ export default function AuctionDetail({
       </div>
       <div className="flex items-center gap-4 mt-20">
         {bidsOpen?.length > 0 && (
-          <BiddingList
-            biddingAccepted={changeAuctionState}
-            biddingList={true ? bidsOpen : bidsClosed}
-          ></BiddingList>
+          <ErrorBoundary fallback={<h1>Error Encountered</h1>}>
+            <BiddingList
+              biddingAccepted={changeAuctionState}
+              biddingList={true ? bidsOpen : bidsClosed}
+            ></BiddingList>
+          </ErrorBoundary>
         )}
       </div>
     </div>

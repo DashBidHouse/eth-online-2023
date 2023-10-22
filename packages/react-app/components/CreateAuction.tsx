@@ -39,7 +39,6 @@ export default function CreateAuction({
   const [description, setDescription] = useState("");
   const [maxOffer, setMaxOffer] = useState(0);
   const [submissionDeadline, setSubmissionDeadline] = useState(0);
-  const [startDate, setStartDate] = useState(0);
 
   // a little bit overengineered here. you would normally do
   // that directly do in the input field
@@ -48,7 +47,6 @@ export default function CreateAuction({
     field === "description" && setDescription(input);
     field === "maxOffer" && setMaxOffer(input);
     field === "endDate" && setSubmissionDeadline(new Date(input).getTime());
-    field === "startDate" && setStartDate(new Date(input).getTime());
   };
 
   // function is called when project is created - button "Create Project"
@@ -73,10 +71,15 @@ export default function CreateAuction({
       setTx(result.hash);
       const transaction = await result.wait();
       setTx(transaction);
-      console.log(tx);
 
       const auctions = await auctionFactoryContract.getDeployedAuctions();
-      console.log(await auctions.wait());
+      console.log(auctions);
+      if (transaction) {
+        router.push({
+          pathname: `/project/${auctions[auctions.length - 1]}`,
+          query: { user }, // Pass the property as a query parameter
+        });
+      }
     } catch (error: any) {
       // Handle the error
       console.error("An error occurred:", error);

@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { graphClient } from "@/utils/graphClient";
 import { allAuctions } from "@/utils/queries";
 import { AuctionItem } from "@/utils/types";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 export default function AuctionListPage() {
   const router = useRouter();
@@ -55,7 +56,9 @@ export default function AuctionListPage() {
         </Typography>
       )}
       <div className="">
-        <AuctionList listEntries={auctions}></AuctionList>
+        <ErrorBoundary fallback={<h1>Error Encountered</h1>}>
+          <AuctionList listEntries={auctions}></AuctionList>
+        </ErrorBoundary>
       </div>
     </div>
   );

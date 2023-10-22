@@ -57,6 +57,7 @@ module.exports = {
       celo: process.env.CELOSCAN_API_KEY,
       goerli: 'XFAGSFB6UXE9MFTA9AHJMGHMXI8IXRVCHW',
       optimismGoerli: 'FP31T2R7TBTXUR7SWXV8QHRCMHMGZTSKGA',
+      scrollSepolia: '6I9MZN5I5QYMPQP9HS699GC6AVTF1AIXQ6',
     },
     customChains: [
       {

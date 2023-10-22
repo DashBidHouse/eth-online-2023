@@ -7,6 +7,7 @@ import { Typography } from "@material-tailwind/react";
 import { graphClient } from "@/utils/graphClient";
 import { allBidsRelatedToOneAuction, auctionById } from "@/utils/queries";
 import { AuctionItem, BiddingItem, ComponentItem } from "@/utils/types";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 const detailFields: Array<ComponentItem> = components.auctionItems;
 
@@ -52,10 +53,12 @@ export default function AuctionDetailPage() {
     <div className="flex flex-col justify-center items-center">
       <div className="h1">
         <Typography>Project Information</Typography>
-        <AuctionDetail
-          detailFields={detailFields}
-          auctionItem={auctions[0]}
-        ></AuctionDetail>
+        <ErrorBoundary fallback={<h1>Error Encountered</h1>}>
+          <AuctionDetail
+            detailFields={detailFields}
+            auctionItem={auctions[0]}
+          ></AuctionDetail>
+        </ErrorBoundary>
       </div>
     </div>
   );
