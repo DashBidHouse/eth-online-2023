@@ -37,7 +37,7 @@ export default function BiddingList({
   const { address, isConnected } = useAccount();
 
   //  smart contract address
-  const auctionContractAddress = "0x51250a9E990fbF72Df64e707e2b4e815E4eC3aF5"; // MantleTestnet2
+  const auctionContractAddress = "0xBDfCFE60766B857C13B5cB51cC2186E31A0Fa615"; // MantleTestnet2
   // 0x0eeCE62d3F778211565b33d97906D4C5974291FA; Mantle Testnet1
   // "0x692a38F2578ac99D17215B1D5305542eDc721742"; // Scroll Sepolia
 

@@ -51,9 +51,6 @@ export default function AuctionDetailPage() {
     fetchAuctionData();
   }, [address, isConnected, fetchAuctionData]);
 
-  // TODO: get subgraph data on the auction
-  // TODO: add dynamic routing
-
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="h1">
