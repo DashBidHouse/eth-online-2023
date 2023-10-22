@@ -48,4 +48,4 @@ dataSources:
           handler: handlePlacedBid
         - event: canceledBid(uint256,indexed address,string,indexed address,string)
           handler: handleCanceledBid
-      file: ./src/auctionFactory.ts
+      file: ./src/auction.ts
