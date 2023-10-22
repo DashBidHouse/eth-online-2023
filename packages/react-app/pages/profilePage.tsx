@@ -23,7 +23,7 @@ export default function ProfilePage() {
   const [projects, setProjects] = useState<Array<AuctionItem>>();
   const [biddings, setBiddings] = useState<Array<BiddingItem>>();
 
-  const dontDoAnything = () => {};
+  const dontDoAnything = async (data: { bidder: string; offer: number }) => {};
   const fetchAuctionData = useCallback(async () => {
     const auctionResult = await graphClient
       .query(allAuctionsFilteredByAnalyst, { userAddress })

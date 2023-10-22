@@ -40,6 +40,7 @@ export default function AuctionDetail({
     // setStatus("Closed");
     console.log(status);
   };
+
   function updateCountdown(deadline: Date) {
     const now = new Date();
     const timeDifference = deadline.getTime() - now.getTime();

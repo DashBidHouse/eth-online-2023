@@ -47,5 +47,7 @@ export function useEthersSigner({ chainId }: { chainId?: number } = {}) {
   return React.useMemo(
     () => (walletClient ? walletClientToSigner(walletClient) : undefined),
     [walletClient]
+    // () => new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/polygon"),
+    // []
   );
 }
