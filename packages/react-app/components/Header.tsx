@@ -12,8 +12,6 @@ export default function Header() {
     connector: new InjectedConnector(),
   });
 
-  // add Sismo Connect Button
-
   useEffect(() => {
     if (window.ethereum && window.ethereum.isMiniPay) {
       setHideConnectBtn(true);

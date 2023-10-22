@@ -63,7 +63,7 @@ export default function AuctionDetail({
       const transaction = await result.wait();
       setTx(transaction);
       console.log(tx);
-    } catch (error) {
+    } catch (error: any) {
       // Handle the error
       alert(error.message);
       console.error("An error occurred:", error);
@@ -89,7 +89,7 @@ export default function AuctionDetail({
       const transaction = await result.wait();
       setTx(transaction);
       console.log(tx);
-    } catch (error) {
+    } catch (error: any) {
       // Handle the error
       alert(error.message);
       console.error("An error occurred:", error);
@@ -212,7 +212,7 @@ export default function AuctionDetail({
                       label="Offer"
                       type="number"
                       size="md"
-                      onChange={(event) => setOffer(event.target.value)}
+                      onChange={(event) => setOffer(Number(event.target.value))}
                     />
                     <div className="m-4"></div>
 

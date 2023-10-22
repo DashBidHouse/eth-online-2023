@@ -74,7 +74,10 @@ export default function CreateAuction({
       const transaction = await result.wait();
       setTx(transaction);
       console.log(tx);
-    } catch (error) {
+
+      const auctions = await auctionFactoryContract.getDeployedAuctions();
+      console.log(await auctions.wait());
+    } catch (error: any) {
       // Handle the error
       console.error("An error occurred:", error);
     }

@@ -87,7 +87,7 @@ export default function BiddingList({
       console.log(tx);
       // biddingAccepted({ winningBidder, winningBid });
       setAuctionStatus("Closed");
-    } catch (error) {
+    } catch (error: any) {
       // Handle the error
       alert(error.message);
       console.error("An error occurred:", error);
@@ -110,7 +110,7 @@ export default function BiddingList({
       const transaction = await result.wait();
       setTx(transaction);
       console.log(tx);
-    } catch (error) {
+    } catch (error: any) {
       // Handle the error
       alert(error.message);
       console.error("An error occurred:", error);
