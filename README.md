@@ -54,3 +54,25 @@ yarn run dev
 ```
 
 ```
+## Demo
+### Presentation, 3 slides (~1 min)
+https://docs.google.com/presentation/d/1IF76KDHXxb1DjRPNQzdVANzn3MySp-MyX0Kw3Qz7DPU/edit?usp=sharing 
+#### Slide1: 
+Title: DashBid: Revolutionizing Data Analytics
+Image: Screenshot of Auction Listing Page
+Text: 
+DashBid is a data dashboard marketplace built on a reverse auction mechanism. Anyone can place an order to develop an onchain data dashboard. When a data client creates an order, data freelancers offer their services.
+
+#### Slide2: 
+Title: Reverse Auction Mechanism
+Image: Picture illustrating reverse auction 
+Text: 
+The essence of DashBid is its reverse auction model. A data client sets a maximum budget for their project, and analysts propose prices below this budget. The benefits for the data client include cost efficiency, a wide choice of analysts, transparent pricing. On the other hand, data freelancers are assured of payments, have the autonomy in pricing, and can build their reputation.
+
+#### Slide3: 
+Title: User Flow
+Image: Schema with User Flow + Smart Contracts
+Text: 
+Delving deeper into the process: A data client creates an order and set a maximum budget. Once the project is created, a 24-hour auction starts, during which data freelancers offer their prices that are below the client's max budget. After all offers are in, the client selects a freelancer based on their offer, reputation, or a combination of both. The amount equivalent to the accepted offer is locked into a smart contract,and the auction is finished. The chosen freelancer needs to submit the project by the client-defined deadline. Upon successful completion, the funds are released to the freelancer. And if there is any issue, either party can initiate a dispute resolution process.
+
+### Video
