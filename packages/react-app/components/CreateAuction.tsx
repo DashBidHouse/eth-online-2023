@@ -16,7 +16,10 @@ export default function CreateAuction({
 
   //  smart contract address
   const auctionFactoryContractAddress =
-    "0x487eD08169b76dB16f64E27A9512e776A2B5ecFd"; // OptimismGoerli
+    // "0x487eD08169b76dB16f64E27A9512e776A2B5ecFd"; // OptimismGoerli
+    // "0x487eD08169b76dB16f64E27A9512e776A2B5ecFd"; // MantleTestnet
+    // "0x692a38F2578ac99D17215B1D5305542eDc721742"; // Scroll Sepolia - newer deployment
+    "0xd44f1ac64bd20870571B688BD575FD5eD4531107"; // Scroll Sepolia - deplyoment for subgraph
 
   // get signer & provider
   const signer = useEthersSigner();
@@ -36,7 +39,6 @@ export default function CreateAuction({
   const [description, setDescription] = useState("");
   const [maxOffer, setMaxOffer] = useState(0);
   const [submissionDeadline, setSubmissionDeadline] = useState(0);
-  const [startDate, setStartDate] = useState(0);
 
   // a little bit overengineered here. you would normally do
   // that directly do in the input field
@@ -45,13 +47,12 @@ export default function CreateAuction({
     field === "description" && setDescription(input);
     field === "maxOffer" && setMaxOffer(input);
     field === "endDate" && setSubmissionDeadline(new Date(input).getTime());
-    field === "startDate" && setStartDate(new Date(input).getTime());
   };
 
   // function is called when project is created - button "Create Project"
   const createAuction = async () => {
     console.log(auctionFactoryContract);
-    console.log(title, description, maxOffer, submissionDeadline, startDate);
+    console.log(title, description, maxOffer, submissionDeadline);
 
     // checks if user is connected with their wallet
     if (!signer) {
@@ -62,14 +63,24 @@ export default function CreateAuction({
       // call smart contract function
       const result = await auctionFactoryContract.createAuction(
         title,
-        description,
         maxOffer,
-        submissionDeadline,
-        startDate
+        description,
+        submissionDeadline
       );
 
       setTx(result.hash);
-    } catch (error) {
+      const transaction = await result.wait();
+      setTx(transaction);
+
+      const auctions = await auctionFactoryContract.getDeployedAuctions();
+      console.log(auctions);
+      if (transaction) {
+        router.push({
+          pathname: `/project/${auctions[auctions.length - 1]}`,
+          query: { user }, // Pass the property as a query parameter
+        });
+      }
+    } catch (error: any) {
       // Handle the error
       console.error("An error occurred:", error);
     }

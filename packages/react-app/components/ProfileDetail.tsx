@@ -1,3 +1,4 @@
+import { AuctionItem } from "@/utils/types";
 import { Avatar } from "@material-tailwind/react";
 
 export default function ProfileDetail(item: AuctionItem) {

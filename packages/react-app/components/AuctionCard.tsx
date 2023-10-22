@@ -62,11 +62,9 @@ export default function AuctionCard(item: AuctionItem) {
         {/* <Typography>Description: {item.description}</Typography> */}
       </CardBody>
       <CardFooter className="pt-0 flex flex-row justify-center">
-        {user === "client" || (
-          <Button onClick={navigateToProject} color="deep-purple">
-            Make Offer
-          </Button>
-        )}
+        <Button onClick={navigateToProject} color="deep-purple">
+          {user === "client" ? "View Project" : "Make Offer"}
+        </Button>
       </CardFooter>
     </Card>
   );

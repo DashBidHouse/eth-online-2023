@@ -28,7 +28,6 @@ type Auction @entity {
   winningBidder: Bytes
   winningBid: BigInt
   status: String
-  bids: [Bid!]!
 }
 
 input AuctionFilter {

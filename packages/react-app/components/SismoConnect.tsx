@@ -10,13 +10,6 @@ import { useEffect, useState } from "react";
 import { waitForTransaction } from "@wagmi/core";
 import { decodeEventLog, formatEther } from "viem";
 import {
-  errorsABI,
-  formatError,
-  fundMyAccountOnLocalFork,
-  signMessage,
-} from "@/utils/misc";
-import { mumbaiFork } from "@/utils/wagmi";
-import {
   useAccount,
   useConnect,
   useContractWrite,

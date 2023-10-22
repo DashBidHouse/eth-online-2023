@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { graphClient } from "@/utils/graphClient";
 import { allAuctions } from "@/utils/queries";
 import { AuctionItem } from "@/utils/types";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 export default function AuctionListPage() {
   const router = useRouter();
@@ -16,11 +17,16 @@ export default function AuctionListPage() {
   const [projects, setProjects] = useState<Array<AuctionItem>>();
 
   const fetchAuctionData = useCallback(async () => {
-    const result = await graphClient
-      .query(allAuctions, { userAddress })
-      .toPromise();
+    try {
+      const result = await graphClient
+        .query(allAuctions, { userAddress })
+        .toPromise();
 
-    console.log(result);
+      console.log(result);
+    } catch (error: any) {
+      // Handle the error
+      console.error("An error occurred:", error);
+    }
 
     // result.length && setProjects(result);
   }, [userAddress]);
@@ -55,7 +61,9 @@ export default function AuctionListPage() {
         </Typography>
       )}
       <div className="">
-        <AuctionList listEntries={auctions}></AuctionList>
+        <ErrorBoundary fallback={<h1>Error Encountered</h1>}>
+          <AuctionList listEntries={auctions}></AuctionList>
+        </ErrorBoundary>
       </div>
     </div>
   );

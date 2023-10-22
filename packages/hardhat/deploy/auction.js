@@ -22,10 +22,20 @@ async function main() {
     let description = 'description';
     let maxOffer = 500;
     let submissionDeadline = 3600 * 24 * 15;
-    let startDate = Math.floor(Date.now() / 1000) + 100;
-    let endDate = startDate + 3600 * 48;
+
+    let title1 = 'auction2';
+    let description1 = 'description';
+    let maxOffer1 = 400;
+    let submissionDeadline1 = 3600 * 24 * 16;
+
+    let title2 = 'auction3';
+    let description2 = 'description';
+    let maxOffer2 = 1000;
+    let submissionDeadline2 = 3600 * 24 * 15;
 
     await AuctionFactory_Deployed.createAuction(title, maxOffer, description, submissionDeadline);
+    await AuctionFactory_Deployed.createAuction(title1, maxOffer1, description1, submissionDeadline1);
+    await AuctionFactory_Deployed.createAuction(title2, maxOffer2, description2, submissionDeadline2);
 
     await sleep(20);
     await verify(AuctionFactory_Deployed.address, []);

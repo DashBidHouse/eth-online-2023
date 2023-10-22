@@ -12,6 +12,7 @@ import {
 } from "@/utils/queries";
 import { AuctionItem, BiddingItem } from "@/utils/types";
 import { useRouter } from "next/router";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 export default function ProfilePage() {
   const [userAddress, setUserAddress] = useState("");
@@ -53,15 +54,19 @@ export default function ProfilePage() {
               ? "Projects you’ve listed"
               : "Projects you’re working on"}
           </Typography>
-          <AuctionList listEntries={auctions}></AuctionList>
+          <ErrorBoundary fallback={<h1>Error Encountered</h1>}>
+            <AuctionList listEntries={auctions}></AuctionList>
+          </ErrorBoundary>
         </div>
         {user === "client" || (
           <div className="flex items-center gap-4 mt-20">
             {bidsOpen?.length > 0 && (
-              <BiddingList
-                biddingAccepted={dontDoAnything}
-                biddingList={bidsOpen}
-              ></BiddingList>
+              <ErrorBoundary fallback={<h1>Error Encountered</h1>}>
+                <BiddingList
+                  biddingAccepted={dontDoAnything}
+                  biddingList={bidsOpen}
+                ></BiddingList>
+              </ErrorBoundary>
             )}
           </div>
         )}
