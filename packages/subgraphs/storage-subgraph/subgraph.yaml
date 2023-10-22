@@ -26,7 +26,6 @@ dataSources:
     name: Auction
     network: scroll-sepolia
     source:
-      address: "0xfBFb8FEE550E8C9209238FB6dC47b3295E2E97bd"
       abi: Auction
       startBlock: 9887611
     mapping:
