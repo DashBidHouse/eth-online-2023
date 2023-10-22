@@ -12,7 +12,9 @@ import { useState } from "react";
 export default function AuctionCard(item: AuctionItem) {
   const router = useRouter();
   const { user } = router.query;
-  const [projectId, setAuctionId] = useState("12");
+  const [projectId, setAuctionId] = useState(
+    "0x7e5225efEA78917145907A0D89d79190d175774A"
+  );
 
   const navigateToProject = () => {
     router.push({

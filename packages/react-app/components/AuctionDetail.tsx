@@ -42,6 +42,7 @@ export default function AuctionDetail({
   const [offer, setOffer] = useState(0);
   const [description, setDescription] = useState("");
   const [tx, setTx] = useState("");
+  const [userVerified, setUserVerified] = useState(true);
 
   // function is called when project is created - button "Create Project"
   const makeOffer = async (offer: number, description: string) => {
@@ -147,8 +148,8 @@ export default function AuctionDetail({
   useEffect(() => {
     setStatus("Opened");
     // Start the countdown initially.
-    updateCountdown(new Date(auctionItem.endDate));
-  }, [updateCountdown, auctionItem.endDate]);
+    updateCountdown(new Date(auctionItem?.endDate));
+  }, [updateCountdown, auctionItem?.endDate]);
 
   return (
     <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8 flex-col">
@@ -173,13 +174,13 @@ export default function AuctionDetail({
             </div>
           </div>
         </Card>
-        {/* <SismoConnect></SismoConnect> */}
+        userVerified ? ( <SismoConnect></SismoConnect>): (
         {status === "Canceled" ? (
           <Typography color="red" variant="h4" className="ml-3 mt-4">
             Canceled
           </Typography>
         ) : status === "Opened" ? (
-          user === "client" ? (
+          !user ? (
             <div className="flex flex-col">
               <div>
                 <Button
@@ -253,9 +254,10 @@ export default function AuctionDetail({
             </div>
           )
         )}
+        )
       </div>
       <div className="flex items-center gap-4 mt-20">
-        {bidsOpen?.length > 0 && (
+        {true && bidsOpen?.length > 0 && (
           <ErrorBoundary fallback={<h1>Error Encountered</h1>}>
             <BiddingList
               biddingAccepted={changeAuctionState}

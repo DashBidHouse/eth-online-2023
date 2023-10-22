@@ -242,18 +242,15 @@ export default function BiddingList({
                             }
                           >
                             Accept
-                            {/* TODO: Import auction status from detail Page  */}
-                            {/* TODO: As soon as a bid is accepted, all the other ones are cancled  */}
                           </Button>
                         ) : (
                           <Button
                             onClick={cancelBid}
                             color="deep-purple"
                             className="font-normal"
+                            disabled={true}
                           >
                             Cancel
-                            {/* TODO: Import auction status from detail Page  */}
-                            {/* TODO: As soon as a bid is accepted, all the other ones are cancled  */}
                           </Button>
                         )}
                       </td>

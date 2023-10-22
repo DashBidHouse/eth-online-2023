@@ -5,6 +5,7 @@ import AuctionFactory from "../abis/AuctionFactory.json";
 import { ethers } from "ethers";
 import { useEthersProvider, useEthersSigner } from "@/utils/ethers";
 import { useState } from "react";
+import SismoConnect from "./SismoConnect";
 
 export default function CreateAuction({
   inputFields,
@@ -33,6 +34,7 @@ export default function CreateAuction({
   );
 
   const [tx, setTx] = useState("");
+  const [userVerified, setUserVerified] = useState(true);
 
   // create states for function inputs - see react states
   const [title, setTitle] = useState("");
@@ -116,14 +118,18 @@ export default function CreateAuction({
             ))}
           </div>
         )}
-        <Button
-          onClick={createAuction}
-          className="m-5 w-1/3"
-          color="deep-purple"
-          ripple={true}
-        >
-          Create Project
-        </Button>
+        {userVerified ? (
+          <SismoConnect></SismoConnect>
+        ) : (
+          <Button
+            onClick={createAuction}
+            className="m-5 w-1/3"
+            color="deep-purple"
+            ripple={true}
+          >
+            Create Project
+          </Button>
+        )}
       </Card>
     </div>
   );
