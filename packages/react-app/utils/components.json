@@ -16,11 +16,6 @@
       "type": "Date"
     },
     {
-      "name": "Auction Start Date",
-      "key": "startDate",
-      "type": "Date"
-    },
-    {
       "name": "Description",
       "key": "description",
       "type": "string"

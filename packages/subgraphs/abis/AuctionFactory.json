@@ -1,5 +1,66 @@
 [
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "manager",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newAuction",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "maxOffer",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "submissionDeadline",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "startDate",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "endDate",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum Auction.AuctionStatus",
+        "name": "status",
+        "type": "uint8"
+      }
+    ],
+    "name": "createdAuction",
+    "type": "event"
+  },
+  {
     "inputs": [],
     "name": "AUCTION_PERIOD",
     "outputs": [
@@ -16,22 +77,22 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "title",
+        "name": "_title",
         "type": "string"
       },
       {
         "internalType": "uint256",
-        "name": "maxOffer",
+        "name": "_maxOffer",
         "type": "uint256"
       },
       {
         "internalType": "string",
-        "name": "description",
+        "name": "_description",
         "type": "string"
       },
       {
         "internalType": "uint256",
-        "name": "submissionDeadline",
+        "name": "_submissionDeadline",
         "type": "uint256"
       }
     ],
