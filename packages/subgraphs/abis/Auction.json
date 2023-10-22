@@ -57,15 +57,15 @@
       },
       {
         "indexed": false,
-        "internalType": "string",
-        "name": "description",
-        "type": "string"
-      },
-      {
-        "indexed": false,
         "internalType": "uint256",
         "name": "maxOffer",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
       },
       {
         "indexed": false,
@@ -93,16 +93,16 @@
         "type": "uint256"
       },
       {
-        "indexed": false,
-        "internalType": "string",
-        "name": "description",
-        "type": "string"
-      },
-      {
         "indexed": true,
         "internalType": "address",
         "name": "auction",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
       },
       {
         "indexed": true,
@@ -150,68 +150,13 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "submissionDeadline",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "startDate",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "endDate",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "enum Auction.AuctionStatus",
-        "name": "status",
-        "type": "uint8"
-      }
-    ],
-    "name": "createdAuction",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "manager",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "title",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "description",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "maxOffer",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
         "name": "endDate",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "bidder",
+        "name": "winningBidder",
         "type": "address"
       },
       {
@@ -240,16 +185,16 @@
         "type": "uint256"
       },
       {
-        "indexed": false,
-        "internalType": "string",
-        "name": "description",
-        "type": "string"
-      },
-      {
         "indexed": true,
         "internalType": "address",
         "name": "auction",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
       },
       {
         "indexed": true,
