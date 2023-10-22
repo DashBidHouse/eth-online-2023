@@ -1,4 +1,4 @@
-import { Auction } from "../generated/Auction/Auction";
+import { DataSourceTemplate } from "@graphprotocol/graph-ts";
 import { createdAuction } from "../generated/AuctionFactory/AuctionFactory";
 import { CreateAuction } from "../generated/schema";
 
@@ -16,4 +16,7 @@ export function handleCreatedAuction(event: createdAuction): void {
     auction.status = event.params.status;
   }
   auction.save();
+
+  // Instantiate the Auction template for the new auction contract
+  DataSourceTemplate.create("Auction", [event.params.newAuction.toHexString()]);
 }
