@@ -25,6 +25,11 @@ module.exports = {
       accounts: [process.env.PRIVATE_KEY],
       chainId: 42220,
     },
+    mumbai: {
+      url: 'https://rpc.ankr.com/polygon_mumbai',
+      accounts: [process.env.PRIVATE_KEY],
+      chainId: 80001,
+    },
     optimismGoerli: {
       url: 'https://optimism-goerli.publicnode.com',
       accounts: [process.env.PRIVATE_KEY],
@@ -58,6 +63,8 @@ module.exports = {
       goerli: 'XFAGSFB6UXE9MFTA9AHJMGHMXI8IXRVCHW',
       optimismGoerli: 'FP31T2R7TBTXUR7SWXV8QHRCMHMGZTSKGA',
       scrollSepolia: '6I9MZN5I5QYMPQP9HS699GC6AVTF1AIXQ6',
+      mumbai: 'B591PTIWMCIK4AJHVHZ8PYYA9E72EAA7UG',
+      mantleTestnet: '',
     },
     customChains: [
       {
