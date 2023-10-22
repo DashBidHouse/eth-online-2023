@@ -1,3 +1,4 @@
+import { useEthersProvider, useEthersSigner } from "@/utils/ethers";
 import { BiddingItem } from "@/utils/types";
 import {
   Button,
@@ -6,8 +7,11 @@ import {
   Chip,
   Typography,
 } from "@material-tailwind/react";
+import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Auction from "../abis/Auction.json";
+import { useAccount } from "wagmi";
 
 const TABLE_HEAD = [
   "Bidder",
@@ -30,15 +34,87 @@ export default function BiddingList({
   const { user } = router.query;
   // TODO: Replace mockdata with data from subgraph or tabelland
   const TABLE_ROWS = biddingList;
+  const { address, isConnected } = useAccount();
+
+  //  smart contract address
+  const auctionContractAddress = "0x51250a9E990fbF72Df64e707e2b4e815E4eC3aF5"; // MantleTestnet2
+  // 0x0eeCE62d3F778211565b33d97906D4C5974291FA; Mantle Testnet1
+  // "0x692a38F2578ac99D17215B1D5305542eDc721742"; // Scroll Sepolia
+
+  // get signer & provider
+  const signer = useEthersSigner();
+  const provider = useEthersProvider();
+
+  // create auctionFactoryContract so we can call a function
+  const auctionContract = new ethers.Contract(
+    auctionContractAddress,
+    Auction.abi,
+    signer || provider
+  );
 
   const [auctionStatus, setAuctionStatus] = useState("Opened");
+  const [tx, setTx] = useState("");
 
-  // call contract auction.finalizeAuction() in the Accept Button
+  // call contract auction.finalizeAuction(address _winningBidder, uint256 _winningBid) in the Accept Button
+  const finalizeAuction = async ({
+    winningBidder,
+    winningBid,
+  }: {
+    winningBidder: string;
+    winningBid: number;
+  }) => {
+    // checks if user is connected with their wallet
+    if (!signer) {
+      alert("Please Connect your Wallet.");
+    }
+
+    console.log(winningBidder);
+
+    try {
+      // call smart contract function
+      // const result = await auctionContract.finalizeAuction(
+      //   winningBidder,
+      //   winningBid
+      // );
+      const result = await auctionContract.finalizeAuction(
+        "0xBCd80f8469B0A04a9f66A97c35a2AE78C4fDEa7E",
+        300
+      );
+
+      setTx(result.hash);
+      const transaction = await result.wait();
+      setTx(transaction);
+      console.log(tx);
+      // biddingAccepted({ winningBidder, winningBid });
+      setAuctionStatus("Closed");
+    } catch (error) {
+      // Handle the error
+      alert(error.message);
+      console.error("An error occurred:", error);
+    }
+  };
+
   // call smart contract function Auction.cancelBid() - cancel Bid button
+  const cancelBid = async () => {
+    // checks if user is connected with their wallet
+    if (!signer) {
+      alert("Please Connect your Wallet.");
+    }
 
-  const acceptOffer = async (bidder: string, offer: number) => {
-    biddingAccepted({ bidder, offer });
-    setAuctionStatus("Closed");
+    try {
+      // call smart contract function
+      // const result = await auctionContract.cancelBid(bidder, offer);
+      const result = await auctionContract.cancelBid();
+
+      setTx(result.hash);
+      const transaction = await result.wait();
+      setTx(transaction);
+      console.log(tx);
+    } catch (error) {
+      // Handle the error
+      alert(error.message);
+      console.error("An error occurred:", error);
+    }
   };
 
   return (
@@ -151,7 +227,6 @@ export default function BiddingList({
                       <td className={classes}>
                         {user === "client" ? (
                           <Button
-                            onClick={() => acceptOffer(bidderAddress, offer)}
                             color="deep-purple"
                             className="font-normal"
                             disabled={
@@ -159,13 +234,23 @@ export default function BiddingList({
                               status === "declined" ||
                               status === "accepted"
                             }
+                            onClick={() =>
+                              finalizeAuction({
+                                winningBidder: bidderAddress,
+                                winningBid: offer,
+                              })
+                            }
                           >
                             Accept
                             {/* TODO: Import auction status from detail Page  */}
                             {/* TODO: As soon as a bid is accepted, all the other ones are cancled  */}
                           </Button>
                         ) : (
-                          <Button color="deep-purple" className="font-normal">
+                          <Button
+                            onClick={cancelBid}
+                            color="deep-purple"
+                            className="font-normal"
+                          >
                             Cancel
                             {/* TODO: Import auction status from detail Page  */}
                             {/* TODO: As soon as a bid is accepted, all the other ones are cancled  */}

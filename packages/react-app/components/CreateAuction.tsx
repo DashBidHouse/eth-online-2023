@@ -5,7 +5,6 @@ import AuctionFactory from "../abis/AuctionFactory.json";
 import { ethers } from "ethers";
 import { useEthersProvider, useEthersSigner } from "@/utils/ethers";
 import { useState } from "react";
-import { log } from "console";
 
 export default function CreateAuction({
   inputFields,
@@ -18,6 +17,7 @@ export default function CreateAuction({
   //  smart contract address
   const auctionFactoryContractAddress =
     // "0x487eD08169b76dB16f64E27A9512e776A2B5ecFd"; // OptimismGoerli
+    // "0x487eD08169b76dB16f64E27A9512e776A2B5ecFd"; // MantleTestnet
     "0x692a38F2578ac99D17215B1D5305542eDc721742"; // Scroll Sepolia
 
   // get signer & provider
@@ -53,7 +53,7 @@ export default function CreateAuction({
   // function is called when project is created - button "Create Project"
   const createAuction = async () => {
     console.log(auctionFactoryContract);
-    console.log(title, description, maxOffer, submissionDeadline, startDate);
+    console.log(title, description, maxOffer, submissionDeadline);
 
     // checks if user is connected with their wallet
     if (!signer) {
@@ -70,7 +70,8 @@ export default function CreateAuction({
       );
 
       setTx(result.hash);
-      const tx = await result.wait();
+      const transaction = await result.wait();
+      setTx(transaction);
       console.log(tx);
     } catch (error) {
       // Handle the error
