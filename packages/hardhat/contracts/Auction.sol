@@ -18,6 +18,7 @@ contract Auction {
   }
 
   struct BidInfo {
+    address bidder;
     uint256 offerAmount;
     string description;
     BidStatus status;
@@ -47,16 +48,6 @@ contract Auction {
 
   uint256 public maxBidOffer;
 
-  event createdAuction(
-    address indexed manager,
-    string title,
-    uint256 maxOffer,
-    string description,
-    uint256 submissionDeadline,
-    uint256 startDate,
-    uint256 endDate,
-    AuctionStatus status
-  );
   event finalizedAuction(
     address indexed manager,
     string title,
@@ -83,8 +74,6 @@ contract Auction {
     auctionStatus = AuctionStatus.Opened;
     auctionInfo = AuctionInfo(_manager, _title, _maxOffer, _description, _submissionDeadline, _startDate, _endDate, auctionStatus);
     maxBidOffer = _maxOffer + 1;
-
-    emit createdAuction(_manager, _title, _maxOffer, _description, _submissionDeadline, _startDate, _endDate, auctionStatus);
   }
 
   modifier onlyManager() {
@@ -133,7 +122,8 @@ contract Auction {
     require(maxBidOffer > _offer, 'Offer needs to be smaller than the previous offer');
     require(msg.sender != auctionInfo.manager, "You can't bid on your own auction.");
 
-    biddingByBidder[msg.sender] = BidInfo(_offer, description, BidStatus.Placed);
+    BidInfo memory bid = BidInfo(msg.sender, _offer, description, BidStatus.Placed);
+    biddingByBidder[msg.sender] = bid;
     maxBidOffer = _offer;
     bidders.add(msg.sender);
 
@@ -143,8 +133,8 @@ contract Auction {
   function cancelBid() public {
     require(auctionStatus == AuctionStatus.Opened && auctionInfo.endDate > block.timestamp, 'Auction has already been finalized.');
 
+    biddingByBidder[msg.sender].status = BidStatus.Canceled;
     BidInfo storage bidInfo_ = biddingByBidder[msg.sender];
-    bidInfo_.status = BidStatus.Canceled;
 
     emit canceledBid(bidInfo_.offerAmount, bidInfo_.description, address(this), msg.sender, BidStatus.Canceled);
   }

@@ -6,7 +6,7 @@ dataSources:
     name: AuctionFactory
     network: scroll-sepolia
     source:
-      address: "0xa5f9A25D85591EA98983337BAc94030674949A8E"
+      address: "0x061aDbB70d398876AeFE66ee73E8915F24404E82"
       abi: AuctionFactory
       startBlock: 9887611
     mapping:
@@ -14,7 +14,7 @@ dataSources:
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - AuctionFactory
+        - Auction
       abis:
         - name: AuctionFactory
           file: ../abis/AuctionFactory.json
@@ -26,7 +26,7 @@ dataSources:
     name: Auction
     network: scroll-sepolia
     source:
-      address: "0x1C77F331f06aE50393ef6D38c02ADd6fB0bf7798"
+      address: "0xfBFb8FEE550E8C9209238FB6dC47b3295E2E97bd"
       abi: Auction
       startBlock: 9887611
     mapping:
@@ -35,6 +35,8 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Auction
+        - Bid
+        - Bidder
       abis:
         - name: Auction
           file: ../abis/Auction.json
@@ -47,4 +49,4 @@ dataSources:
           handler: handlePlacedBid
         - event: canceledBid(uint256,indexed address,string,indexed address,string)
           handler: handleCanceledBid
-      file: ./src/auction.ts
+      file: ./src/auctionFactory.ts

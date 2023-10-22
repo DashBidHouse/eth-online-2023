@@ -1,3 +1,4 @@
+import { Auction } from "../generated/Auction/Auction";
 import { createdAuction } from "../generated/AuctionFactory/AuctionFactory";
 import { CreateAuction } from "../generated/schema";
 
